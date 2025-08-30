@@ -1,3 +1,4 @@
+local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/rayfield'))()
 
@@ -53,8 +54,15 @@ local Toggle = MainTab:CreateToggle({
     CurrentValue = false,
     Flag = "SayMessageToggle",
     Callback = function(Value)
+        _G.SayMessageActive = Value
         if Value then
             TextChatService.TextChannels.RBXGeneral:SendAsync("Hello world!")
         end
     end,
 })
+
+Players.PlayerAdded:Connect(function(player)
+    if _G.SayMessageActive then
+        TextChatService.TextChannels.RBXGeneral:SendAsync("Hello world!")
+    end
+end)
