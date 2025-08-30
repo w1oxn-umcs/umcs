@@ -56,8 +56,6 @@ local whitelist = {
     "Nathan"
 }
 
-local greetedPlayers = {}
-
 local Toggle = MainTab:CreateToggle({
     Name = "Say Message Toggle",
     CurrentValue = false,
@@ -68,7 +66,7 @@ local Toggle = MainTab:CreateToggle({
 })
 
 Players.PlayerAdded:Connect(function(player)
-    if _G.SayMessageActive and not greetedPlayers[player.UserId] then
+    if _G.SayMessageActive then
         local greeting
         local isVIP = false
         for _, name in ipairs(whitelist) do
@@ -85,20 +83,17 @@ Players.PlayerAdded:Connect(function(player)
         end
 
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
-        greetedPlayers[player.UserId] = true
     end
 end)
-
-local TextChatService = game:GetService("TextChatService")
 
 local Input = MainTab:CreateInput({
    Name = "Announcement",
    CurrentValue = "",
    PlaceholderText = "Write announcement here",
-   RemoveTextAfterFocusLost = false,
+   RemoveTextAfterFocusLost = true,
    Flag = "Input1",
    Callback = function(Text)
-       local fancyIntro = "📢 ANNOUNCEMENT: "
+       local fancyIntro = "📢ANNOUNCEMENT📢: "
        for i = 1, 3 do
            TextChatService.TextChannels.RBXGeneral:SendAsync(fancyIntro .. Text)
            task.wait(0.2)
