@@ -51,9 +51,11 @@ local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 
 local whitelist = {
-    "fgw_k",
-    "Denis",
-    "Nathan"
+    "ComradeAlexeiP",
+    "ComradeDenisV",
+    "eyeyey6622",
+	"ComradeViktorS",
+	"Mahfuzumj4"
 }
 
 local Toggle = MainTab:CreateToggle({
