@@ -7,7 +7,7 @@ local Window = Rayfield:CreateWindow({
 	Icon = 0,
 	LoadingTitle = "MirrlandBot Script",
 	LoadingSubtitle = "by Alexei Petrov",
-	ShowText = "Rayfield",
+	ShowText = "Script",
 	Theme = "Default",
 
 	ToggleUIKeybind = "K",
@@ -49,14 +49,14 @@ local Button = MainTab:CreateButton({
 end,
 })
 
-local Players = game:GetService("Players")
-local TextChatService = game:GetService("TextChatService")
 
 local whitelist = {
     "fgw_k",
     "Denis",
     "Nathan"
 }
+
+local greetedPlayers = {}
 
 local Toggle = MainTab:CreateToggle({
     Name = "Say Message Toggle",
@@ -68,14 +68,35 @@ local Toggle = MainTab:CreateToggle({
 })
 
 Players.PlayerAdded:Connect(function(player)
-    if _G.SayMessageActive then
-        local greeting = "Hello " .. player.Name .. "!"
+    if _G.SayMessageActive and not greetedPlayers[player.UserId] then
+        local isVIP = false
         for _, name in ipairs(whitelist) do
             if player.Name == name then
-                greeting = "Welcome back, VIP " .. player.Name .. "!"
+                isVIP = true
                 break
             end
         end
+
+        local greeting
+        if isVIP then
+            greeting = "Welcome back, VIP " .. player.Name .. "!"
+        else
+            greeting = "Hello " .. player.Name .. "!"
+        end
+
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
+        greetedPlayers[player.UserId] = true
     end
 end)
+
+local Input = Tab:CreateInput({
+   Name = "Input Example",
+   CurrentValue = "",
+   PlaceholderText = "Input Placeholder",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+   -- The function that takes place when the input is changed
+   -- The variable (Text) is a string for the value in the text box
+   end,
+})
