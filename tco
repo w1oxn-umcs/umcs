@@ -11,11 +11,11 @@ local Window = Rayfield:CreateWindow({
 	ToggleUIKeybind = "K",
 
 	DisableRayfieldPrompts = false,
-	DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+	DisableBuildWarnings = false,
 
 	ConfigurationSaving = {
 		Enabled = true,
-		FolderName = nil, -- Create a custom folder for your hub/game
+		FolderName = nil,
 		FileName = "Big Hub"
 	},
 
@@ -29,7 +29,7 @@ local Window = Rayfield:CreateWindow({
 	KeySettings = {
 		Title = "Untitled",
 		Subtitle = "Key System",
-		Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+		Note = "No method of obtaining the key is provided",
 		FileName = "Key",
 		SaveKey = true,
 		GrabKeyFromSite = false,
@@ -78,9 +78,9 @@ local mouse = localplr:GetMouse()
 local dragging = {}
 function dragtopos(fpos,spos,pos,frame,bounds,ar)
     local finalpos = UDim2.new(
-        frame.Position.X.Scale, --spos.X.Scale+(fpos.X.Scale-pos.X.Scale),
+        frame.Position.X.Scale,
         spos.X.Offset-(fpos.X.Offset-pos.X),
-        frame.Position.Y.Scale, --spos.Y.Scale+(fpos.Y.Scale-pos.Y.Scale),
+        frame.Position.Y.Scale,
         spos.Y.Offset-(fpos.Y.Offset-pos.Y)
     )
     if bounds ~= nil then
@@ -117,7 +117,7 @@ function dragtopos(fpos,spos,pos,frame,bounds,ar)
             math.clamp(
                 finalpos.Y.Offset,
                 -finalpos.Y.Scale*screensize.Y,
-                (-finalpos.Y.Scale*screensize.Y)+(screensize.Y-abss.Y) -- doesnt actually do the correct position but i gave up
+                (-finalpos.Y.Scale*screensize.Y)+(screensize.Y-abss.Y)
             )
         )
         --[[
@@ -171,7 +171,7 @@ local drag = function(frame,bounds,chf)
         table.insert(frames,frame)
     end
     for i,frame in pairs(frames) do
-        frame.Active = true -- uhh
+        frame.Active = true
         local w,h = frame.AbsoluteSize.X,frame.AbsoluteSize.Y
         local ar = w/h
         frame.InputBegan:Connect(function(input)
@@ -218,7 +218,7 @@ local connectfuncs = {}
 local dropdownstuff = {}
 local tabnum = 0
 local amtsize = 100000
-local amtsize2 = amtsize*10 -- incase something idk
+local amtsize2 = amtsize*10
 local localplr = game.Players.LocalPlayer
 local titletext = ""
 function lib.makelib(titletext2)
@@ -579,7 +579,7 @@ function snap(pos,m)
     local x = math.round(pos.X/m)+2
     return pos
 end
-local childcube = nil -- yeah its reversed
+local childcube = nil
 local childcube2 = nil
 local oldprt = nil
 local tp = true
@@ -609,7 +609,7 @@ if workspace.Bricks:FindFirstChild(localplr.Name) then
     end
 else
     cubechild = workspace.Bricks.ChildAdded:Connect(function()
-    end) -- literally does nothing, make fun of my code
+    end)
 end
 function getclosesttopos(pos)
 	local closest = nil
@@ -657,7 +657,7 @@ function buildblock(pos,texture,color,bsize,bsizev3,premadebuild,origmaterial,sp
 		collide = true
 	end
 	local needsresize = false
-    local s,e = pcall(function() -- this function is called soooo much and errors will stop the whole script so we gotta just bandage it in like 1000 pcall functions
+    local s,e = pcall(function()
     local s,e = pcall(function()
         localplr.Backpack.Build.Parent = localplr.Character
     end)
@@ -680,7 +680,7 @@ function buildblock(pos,texture,color,bsize,bsizev3,premadebuild,origmaterial,sp
                 end
             end
         end
-		-- even MOORREEE optimizations
+		
 		if #allooslol > 1 and color and oo[2].Color ~= color then
 			for i,v in pairs(allooslol) do
 				if v[2].Color == color then
@@ -1076,7 +1076,7 @@ lib.makebutton("Build D***",buildtab,function()
 	local cfr2 = {math.rad(math.round(convrot(x)/90)*90),math.rad(math.round(convrot(y)/90)*90),math.rad(math.round(convrot(z)/90)*90)}
 	cfr = CFrame.new(cfr.Position) * CFrame.fromOrientation(table.unpack(cfr2))
     local pos = cfr.Position
-    local blocks = { -- yes, this is the whole thing, go ahead, skid it.
+    local blocks = { 
       {0,0,0,0,2,2,3,2,2,0,0,0,0},
       {0,0,0,2,2,2,3,2,2,2,0,0,0},
       {0,0,2,2,2,2,2,2,2,2,2,0,0},
@@ -1443,7 +1443,7 @@ lib.maketextbox("Build QR Code",buildtab,function(txt)
         	if v2 ~= 0 then
         	    local p = (cfr * CFrame.new(x,(#blocks-i)*bs,-bs*bs)).Position
         	    if bs == 4 then
-        	    	p = round(p) -- screw it, imma jus do this
+        	    	p = round(p) 
         	    	p = p + Vector3.new(2.5,-1.5,2.5)
         	    else
         	    	p = round(p,1)
@@ -1458,7 +1458,7 @@ lib.maketextbox("Build QR Code",buildtab,function(txt)
 end)
 local pinghistory = {}
 local historynum2 = 0
---coroutine.wrap(function() --this doesnt work
+--coroutine.wrap(function()
 local http = game:GetService("HttpService")
 if not http.JSONDecode or not http.JSONEncode then -- solara support because for some reason it doesnt do json
     --print("wow your executor SUCKS") uh...
