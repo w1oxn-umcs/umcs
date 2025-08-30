@@ -1,3 +1,4 @@
+local TextChatService = game:GetService("TextChatService")
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -48,13 +49,12 @@ end,
 })
 
 local Toggle = MainTab:CreateToggle({
-    Name = "Toggle Example",
+    Name = "Say Message Toggle",
     CurrentValue = false,
-    Flag = "Toggle1",
+    Flag = "SayMessageToggle",
     Callback = function(Value)
         if Value then
-            -- Player will say this message only once when toggle is turned on
-            game.Players.LocalPlayer:Chat("Hello world!")
+            TextChatService.TextChannels.RBXGeneral:SendAsync("Hello world!")
         end
     end,
 })
