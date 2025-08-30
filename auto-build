@@ -28,15 +28,15 @@ bbsbox.SurfaceTransparency = 1
 bbsbox.Transparency = 0
 bbsbox.Parent = game.CoreGui
 local lib = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Lib-18698"))()
-lib.makelib("The Chosen One Auto-Build)")
+lib.makelib("The Chosen One Auto-Build")
 local buildtab = lib.maketab("Build")
 local tooltab = lib.maketab("Tools")
 local geartab = lib.maketab("Gears")
 local scripttab = lib.maketab("More Scripts")
-local bsaltab = lib.maketab("Save/Load Build")
+local bsaltab = lib.maketab("Save & Load Build")
 local commandtab = lib.maketab("Commands")
-local modtab = lib.maketab("Moderation/Management")
-lib.makelabel("Long live Mirrland!",buildtab)
+local modtab = lib.maketab("Moderation & Management")
+lib.makelabel("Long live the Union of Mirrland Communist States!",buildtab)
 function snap(pos,m)
     --pos = Vector3.new(math.round(pos.X/mult)*mult,math.round(pos.Y/mult)*mult,math.round(pos.Z/mult)*mult)
     if m == nil then
@@ -525,7 +525,7 @@ end)
 function convrot(int)
     return (int*360)/(math.pi*2)
 end
-lib.makebutton("Build D***",buildtab,function()
+lib.makebutton("Build Dick",buildtab,function()
     built = true
     stopped = false
     local stopbuild = false
@@ -935,16 +935,16 @@ if not http.JSONDecode or not http.JSONEncode then
         return http.encode(val)
     end
 end
-lib.makelabel("The script cannot tell the difference between a toxify and a neon so its defaulted to neon (mb)",bsaltab)
-lib.makelabel("Saving spray images also doesnt work because for some reason it doesnt show :(",bsaltab)
-lib.makelabel("Signs also dont work (for now)",bsaltab)
+lib.makelabel("This script cannot distinguish between Toxify  Neon. Therefore, it defaults to Neon.",bsaltab)
+lib.makelabel("Saving spray images does not work because, for some reason, they do not appear.",bsaltab)
+lib.makelabel("Signs are currently non-functional.",bsaltab)
 lib.makebutton("Stop Building",bsaltab,function()
     stopped = true
 end)
 lib.makebutton("Skip Block",bsaltab,function()
     skipblock = true
 end)
-lib.makelabel("saving builds",bsaltab)
+lib.makelabel("Saving Builds:",bsaltab)
 local starterui = game:GetService("StarterGui")
 local savebuildname = "Untitled"
 local savebuildnames = {}
