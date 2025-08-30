@@ -79,9 +79,9 @@ Players.PlayerAdded:Connect(function(player)
         end
 
         if isVIP then
-            greeting = "Welcome back, VIP " .. player.Name .. "!"
+            greeting = "Greetings, Supreme Мирском Member " .. player.Name .. "."
         else
-            greeting = "Hello " .. player.Name .. "!"
+            greeting = "Hello, " .. player.Name .. "."
         end
 
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
