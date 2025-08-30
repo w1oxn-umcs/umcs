@@ -93,7 +93,7 @@ local Input = MainTab:CreateInput({
    RemoveTextAfterFocusLost = true,
    Flag = "Input1",
    Callback = function(Text)
-       local fancyIntro = "📢ANNOUNCEMENT📢: "
+       local fancyIntro = "📢ANNOUNCEMENeT📢: "
        for i = 1, 3 do
            TextChatService.TextChannels.RBXGeneral:SendAsync(fancyIntro .. Text)
            task.wait(0.2)
