@@ -54,8 +54,8 @@ local whitelist = {
     "ComradeAlexeiP",
     "ComradeDenisV",
     "eyeyey6622",
-	"ComradeViktorS",
-	"Mahfuzumj4"
+    "ComradeViktorS",
+"Mahfuzumj4"
 }
 
 local Toggle = MainTab:CreateToggle({
