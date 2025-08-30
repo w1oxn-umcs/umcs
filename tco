@@ -38,7 +38,7 @@ local Window = Rayfield:CreateWindow({
 })
 
 local MainTab = Window:CreateTab("Main", 0)
-local MainSection = Tab:CreateSection("Main")
+local MainSection = MainTab:CreateSection("Main")
 
 local Button = MainTab:CreateButton({
    Name = "TCO Extra Stuff",
