@@ -1,5 +1,11 @@
+local whitelist = {
+    "fgw_k",
+    "Denis",
+    "Nathan"
+}
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
+local greetedPlayers = {}
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -49,15 +55,6 @@ local Button = MainTab:CreateButton({
 end,
 })
 
-
-local whitelist = {
-    "fgw_k",
-    "Denis",
-    "Nathan"
-}
-
-local greetedPlayers = {}
-
 local Toggle = MainTab:CreateToggle({
     Name = "Say Message Toggle",
     CurrentValue = false,
@@ -89,8 +86,8 @@ Players.PlayerAdded:Connect(function(player)
     end
 end)
 
-local Input = Tab:CreateInput({
-   Name = "Input Example",
+local Input = MainTab:CreateInput({
+   Name = "Annoucement",
    CurrentValue = "",
    PlaceholderText = "Input Placeholder",
    RemoveTextAfterFocusLost = false,
