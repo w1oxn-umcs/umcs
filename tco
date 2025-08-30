@@ -40,7 +40,7 @@ local Window = Rayfield:CreateWindow({
 local MainTab = Window:CreateTab("Main", 0)
 local MainSection = Tab:CreateSection("Main")
 
-local Button = Tab:CreateButton({
+local Button = MainTab:CreateButton({
    Name = "TCO Extra Stuff",
    Callback = function()
 loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
