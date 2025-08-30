@@ -43,6 +43,6 @@ local MainSection = Tab:CreateSection("Main")
 local Button = Tab:CreateButton({
    Name = "TCO Extra Stuff",
    Callback = function()
-		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
+loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
    end,
 })
