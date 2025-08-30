@@ -55,14 +55,11 @@ local Toggle = MainTab:CreateToggle({
     Flag = "SayMessageToggle",
     Callback = function(Value)
         _G.SayMessageActive = Value
-        if Value then
-            TextChatService.TextChannels.RBXGeneral:SendAsync("Hello world!")
-        end
     end,
 })
 
 Players.PlayerAdded:Connect(function(player)
     if _G.SayMessageActive then
-        TextChatService.TextChannels.RBXGeneral:SendAsync("Hello world!")
+        TextChatService.TextChannels.RBXGeneral:SendAsync("Hello " .. player.Name .. "!")
     end
 end)
