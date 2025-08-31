@@ -67,8 +67,6 @@ local Toggle = MainTab:CreateToggle({
 
 Players.PlayerAdded:Connect(function(player)
     if _G.SayMessageActive then
-        task.wait(0.2)
-
         local greeting
         local isVIP = false
         for _, name in ipairs(whitelist) do
@@ -84,6 +82,7 @@ Players.PlayerAdded:Connect(function(player)
             greeting = "Hello, " .. player.Name .. "."
         end
 
+        task.wait(0.2) -- wait 0.2s before sending
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
     end
 end)
