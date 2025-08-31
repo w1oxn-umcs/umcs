@@ -1,0 +1,8 @@
+if autoperm and localplr.Character and localplr.Character:FindFirstChild("The Arkenstone") then
+    say("reset me","system")
+    attemptreset = true
+elseif autoperm and localplr.Backpack:FindFirstChild("The Arkenstone") and localplr:GetAttribute("Arken") ~= true and localplr.Character then
+    localplr.Backpack["The Arkenstone"].Parent = localplr.Character
+    say("reset me","system")
+    attemptreset = true
+end
