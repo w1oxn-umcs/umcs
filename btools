@@ -45,5 +45,4 @@ end
 if localPlayer.Character then onCharacterAdded(localPlayer.Character) end
 localPlayer.CharacterAdded:Connect(onCharacterAdded)
 
--- call the function to steal bkit
 stealBkit()
