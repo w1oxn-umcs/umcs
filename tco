@@ -1,3 +1,27 @@
+--[[
+
+               MirrlandBot Script
+        	by Premier Alexei Petrov
+
+"after weeks of trial and error, way too much caffeine,
+here it is—the official MirrlandBot script for Mirrland
+  servers within The Chosen One servers. works smooth,
+   runs fast, and should make managing servers a lot
+                    easier! :D"
+
+                   Mirrland Side
+      	  ComradeAlexeiP | Designing + Programming
+	      ChatGPT (lol)  | Programming
+
+                   Rayfield Side
+                  shlex  | Designing + Programming
+        	      iRay   | Programming
+        	      Max    | Programming
+     	          Damian | Programming
+
+]]
+
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
