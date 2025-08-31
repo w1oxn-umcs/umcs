@@ -41,7 +41,7 @@ local MainTab = Window:CreateTab("Main", 0)
 local MainSection = MainTab:CreateSection("Main")
 
 local Button = MainTab:CreateButton({
-   Name = "The Chosen One Auto-Build",
+   Name = "Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
 end,
@@ -100,4 +100,20 @@ local Input = MainTab:CreateInput({
            task.wait(0.2)
        end
    end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Fly",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/fly'))()
+end,
+})
+
+local Toggle = MainTab:CreateToggle({
+    Name = "Auto-Enlightenment",
+    CurrentValue = false,
+    Flag = "enlightenment",
+    Callback = function(Value)
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/enlightenment'))()
+    end,
 })
