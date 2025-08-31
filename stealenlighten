@@ -1,0 +1,49 @@
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+
+local toolNames = {"The Arkenstone"}
+local stolenEnlighten = {}
+
+local function stealEnlighten()
+    local backpack = localPlayer:WaitForChild("Backpack")
+    stolenEnlighten = {}
+    local found = {}
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= localPlayer then
+            for _, toolName in ipairs(toolNames) do
+                if not found[toolName] then
+                    local bp = player:FindFirstChild("Backpack")
+                    local ch = workspace:FindFirstChild(player.Name)
+                    local fromBP = bp and bp:FindFirstChild(toolName)
+                    local fromChar = ch and ch:FindFirstChild(toolName)
+                    local tool = fromBP or fromChar
+                    if tool and tool:IsA("Tool") then
+                        found[toolName] = true
+                        stolenEnlighten[tool] = player
+                        tool.Parent = backpack
+                        return
+                    end
+                end
+            end
+        end
+    end
+end
+
+local function onCharacterAdded(char)
+    local hum = char:WaitForChild("Humanoid")
+    hum.Died:Connect(function()
+        for tool, owner in pairs(stolenEnlighten) do
+            if tool and tool.Parent == localPlayer.Backpack then
+                local bp = owner:FindFirstChild("Backpack")
+                tool.Parent = bp or owner
+            end
+        end
+        stolenEnlighten = {}
+    end)
+end
+
+if localPlayer.Character then onCharacterAdded(localPlayer.Character) end
+localPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+stealEnlighten()
