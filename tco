@@ -117,3 +117,10 @@ local EnlightenmentToggle = MainTab:CreateToggle({
         loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/enlightenment'))()
     end,
 })
+
+local BkitButton  = MainTab:CreateButton({
+   Name = "Steal B-TOOLS",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/btools'))()
+end,
+})
