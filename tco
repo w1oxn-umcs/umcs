@@ -162,6 +162,7 @@ local RemoveEnlightenButton = MainTab:CreateButton({
         local chat = game:GetService("TextChatService").TextChannels.RBXGeneral
         chat:SendAsync(";enlighten o")
            task.wait(0.05)
+		local chat = game:GetService("TextChatService").TextChannels.RBXGeneral
         chat:SendAsync(";clearinv o")
     end,
 })
