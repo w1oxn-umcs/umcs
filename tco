@@ -49,6 +49,7 @@ end,
 
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
+local localplr = Players.LocalPlayer
 
 local whitelist = {
     "ComradeAlexeiP",
@@ -100,4 +101,20 @@ local Input = MainTab:CreateInput({
            task.wait(0.2)
        end
    end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Fly",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/fly'))()
+end,
+})
+
+local Toggle = MainTab:CreateToggle({
+    Name = "Auto-Enlightenment",
+    CurrentValue = false,
+    Flag = "SayMessageToggle",
+    Callback = function(Value)
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/enlightenment'))()
+    end,
 })
