@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
 	Name = "Union of Mirrland Communist States",
@@ -49,7 +49,6 @@ end,
 
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
-local localplr = Players.LocalPlayer
 
 local whitelist = {
     "ComradeAlexeiP",
