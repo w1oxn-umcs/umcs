@@ -2,7 +2,7 @@ local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1ox
 
 local Window = Rayfield:CreateWindow({
 	Name = "Union of Mirrland Communist States",
-	Icon = "119069000342173",
+	Icon = 0",
 	LoadingTitle = "MirrlandBot Script",
 	LoadingSubtitle = "by Premier Alexei Petrov",
 	ShowText = "Script",
@@ -101,20 +101,4 @@ local Input = MainTab:CreateInput({
            task.wait(0.2)
        end
    end,
-})
-
-local Button = MainTab:CreateButton({
-   Name = "Fly",
-   Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/fly'))()
-end,
-})
-
-local Toggle = MainTab:CreateToggle({
-    Name = "Auto-Enlightenment",
-    CurrentValue = false,
-    Flag = "enlightenment",
-    Callback = function(Value)
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/enlightenment'))()
-    end,
 })
