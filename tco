@@ -2,7 +2,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
 	Name = "Union of Mirrland Communist States",
-	Icon = rbxassetid://119069000342173,
+	Icon = 0,
 	LoadingTitle = "MirrlandBot Script",
 	LoadingSubtitle = "by Premier Alexei Petrov",
 	ShowText = "Script",
