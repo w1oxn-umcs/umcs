@@ -149,6 +149,13 @@ local BkitButton  = MainTab:CreateButton({
 end,
 })
 
+local EnlightenButton  = MainTab:CreateButton({
+   Name = "Steal Enlightenment",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/stealenlighten'))()
+end,
+})
+
 local RemoveEnlightenButton = MainTab:CreateButton({
     Name = "Remove Enlightenment",
     Callback = function()
