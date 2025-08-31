@@ -2,9 +2,9 @@ local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1ox
 
 local Window = Rayfield:CreateWindow({
 	Name = "Union of Mirrland Communist States",
-	Icon = 0,
+	Icon = 81547304312275,
 	LoadingTitle = "MirrlandBot Script",
-	LoadingSubtitle = "by Alexei Petrov",
+	LoadingSubtitle = "by Premier Alexei Petrov",
 	ShowText = "Script",
 	Theme = "Default",
 
@@ -53,13 +53,11 @@ local TextChatService = game:GetService("TextChatService")
 local whitelist = {
     "ComradeAlexeiP",
     "ComradeDenisV",
-    "eyeyey6622",
-    "ComradeViktorS",
-    "Mahfuzumj4"
+    "eyeyey6622"
 }
 
 local Toggle = MainTab:CreateToggle({
-    Name = "Say Message Toggle",
+    Name = "Welcome Message",
     CurrentValue = false,
     Flag = "SayMessageToggle",
     Callback = function(Value)
@@ -69,6 +67,8 @@ local Toggle = MainTab:CreateToggle({
 
 Players.PlayerAdded:Connect(function(player)
     if _G.SayMessageActive then
+        task.wait(0.2)
+
         local greeting
         local isVIP = false
         for _, name in ipairs(whitelist) do
