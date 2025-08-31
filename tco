@@ -125,6 +125,15 @@ local BkitButton  = MainTab:CreateButton({
 end,
 })
 
+local RemoveEnlightenButton = MainTab:CreateButton({
+    Name = "Remove Enlightenment",
+    Callback = function()
+        local chat = game:GetService("TextChatService").TextChannels.RBXGeneral
+        chat:SendAsync(";enlighten o")
+        chat:SendAsync(";clearinv o")
+    end,
+})
+
 local R6Toggle = MainTab:CreateToggle({
     Name = "R6 Crash",
     CurrentValue = false,
@@ -163,6 +172,26 @@ local LockdownToggle = MainTab:CreateToggle({
             end)
         else
             _G.Active = false
+        end
+    end,
+})
+
+local ResetToggle = MainTab:CreateToggle({
+    Name = "Reset",
+    CurrentValue = false,
+    Flag = "reset",
+    Callback = function(Value)
+        if Value then
+            _G.ResetActive = true
+            task.spawn(function()
+                while _G.ResetActive do
+                    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(";reset o")
+                    task.wait(0.001)
+                    if not _G.ResetActive then break end
+                end
+            end)
+        else
+            _G.ResetActive = false
         end
     end,
 })
