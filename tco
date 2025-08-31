@@ -124,3 +124,45 @@ local BkitButton  = MainTab:CreateButton({
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/btools'))()
 end,
 })
+
+local R6Toggle = MainTab:CreateToggle({
+    Name = "R6 Crash",
+    CurrentValue = false,
+    Flag = "r6",
+    Callback = function(Value)
+        if Value then
+            _G.Activo = true
+            task.spawn(function()
+                while _G.Activo do
+                    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(";r6 o")
+                    task.wait(0.001)
+                end
+            end)
+        else
+            _G.Activo = false
+        end
+    end,
+})
+
+local LockdownToggle = MainTab:CreateToggle({
+    Name = "Lockdown",
+    CurrentValue = false,
+    Flag = "lockdown",
+    Callback = function(Value)
+        if Value then
+            _G.Active = true
+            task.spawn(function()
+                local commands = {";freeze o", ";glitch o", ";mute o", ";jail o", ";iq 0 o", ";blind o", ";myopic o", ";clearinv o"}
+                while _G.Active do
+                    for _, cmd in ipairs(commands) do
+                        game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+                        task.wait(0.001)
+                        if not _G.Active then break end
+                    end
+                end
+            end)
+        else
+            _G.Active = false
+        end
+    end,
+})
