@@ -113,7 +113,7 @@ end,
 local Toggle = MainTab:CreateToggle({
     Name = "Auto-Enlightenment",
     CurrentValue = false,
-    Flag = "SayMessageToggle",
+    Flag = "enlightenment",
     Callback = function(Value)
         loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/enlightenment'))()
     end,
