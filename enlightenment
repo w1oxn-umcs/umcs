@@ -1,8 +1,23 @@
-if autoperm and localplr.Character and localplr.Character:FindFirstChild("The Arkenstone") then
-    say("reset me","system")
-    attemptreset = true
-elseif autoperm and localplr.Backpack:FindFirstChild("The Arkenstone") and localplr:GetAttribute("Arken") ~= true and localplr.Character then
-    localplr.Backpack["The Arkenstone"].Parent = localplr.Character
-    say("reset me","system")
-    attemptreset = true
+local Players = game:GetService("Players")
+local localplr = Players.LocalPlayer
+local TextChatService = game:GetService("TextChatService")
+
+local function say(msg)
+    local channel = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+    if channel then
+        channel:SendAsync(msg)
+    end
 end
+
+local autoperm = true
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if autoperm and localplr.Character then
+        if localplr.Character:FindFirstChild("The Arkenstone") then
+            say(";reset me")
+        elseif localplr.Backpack:FindFirstChild("The Arkenstone") then
+            localplr.Backpack["The Arkenstone"].Parent = localplr.Character
+            say(";reset me")
+        end
+    end
+end)
