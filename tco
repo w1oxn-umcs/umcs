@@ -121,7 +121,7 @@ local Input = MainTab:CreateInput({
        local fancyIntro = "📢ANNOUNCEMENT📢: "
        for i = 1, 3 do
            TextChatService.TextChannels.RBXGeneral:SendAsync(fancyIntro .. Text)
-           task.wait(0.2)
+           task.wait(0.5)
        end
    end,
 })
@@ -147,24 +147,6 @@ local BkitButton  = MainTab:CreateButton({
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/btools'))()
 end,
-})
-
-local EnlightenButton  = MainTab:CreateButton({
-   Name = "Steal Enlightenment",
-   Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/stealenlighten'))()
-end,
-})
-
-local RemoveEnlightenButton = MainTab:CreateButton({
-    Name = "Remove Enlightenment",
-    Callback = function()
-        local chat = game:GetService("TextChatService").TextChannels.RBXGeneral
-        chat:SendAsync(";enlighten o")
-           task.wait(0.05)
-		local chat = game:GetService("TextChatService").TextChannels.RBXGeneral
-        chat:SendAsync(";clearinv o")
-    end,
 })
 
 local R6Toggle = MainTab:CreateToggle({
@@ -225,6 +207,21 @@ local ResetToggle = MainTab:CreateToggle({
             end)
         else
             _G.ResetActive = false
+        end
+    end,
+})
+
+local ClothingTab = Window:CreateTab("Clothing", 0)
+local ClothingSection = ClothingTab:CreateSection("Clothing")
+
+local MirskomButton  = ClothingTab:CreateButton({
+   Name = "Мирском Uniform",
+   Callback = function()
+        local commands = {"/w ComradeAlexeiP ;wear n 137840120135002", "/w ComradeAlexeiP ;wear n 104350730942409", "/w ComradeAlexeiP ;wear n 95472082888611"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
         end
     end,
 })
