@@ -217,7 +217,7 @@ local ClothingSection = ClothingTab:CreateSection("Clothing")
 local MirskomButton  = ClothingTab:CreateButton({
    Name = "Мирском Uniform",
    Callback = function()
-        local commands = {"/w ComradeAlexeiP ;wear n 137840120135002", "/w ComradeAlexeiP ;wear n 104350730942409", "/w ComradeAlexeiP ;wear n 95472082888611"}
+        local commands = {";wear n 137840120135002", ";wear n 104350730942409", ";wear n 95472082888611"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
