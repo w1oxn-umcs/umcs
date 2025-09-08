@@ -19,10 +19,10 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-	Name = "MirrlandBot - ",
+	Name = "MirrlandBot - Auto-Build",
 	Icon = 0,
-	LoadingTitle = "MirrlandBot - Hub",
-	LoadingSubtitle = "by Premier Alexei Petrov",
+	LoadingTitle = "MirrlandBot - Auto-Build",
+	LoadingSubtitle = "by Comrade Alexei Petrov",
 	ShowText = "Script",
 	Theme = "Default",
 
