@@ -55,5 +55,23 @@ local Window = Rayfield:CreateWindow({
 	}
 })
 
-local MainTab = Window:CreateTab("Main", 0)
-local MainSection = MainTab:CreateSection("Main")
+local SaveTab = Window:CreateTab("Save & Load Build", 0)
+local (alex fill ts)Section = SaveTab:CreateSection("alex fill ts")
+
+local CommandsTab = Window:CreateTab("Commands", 0)
+local (alex fill ts)Section = CommandsTab:CreateSection("alex fill ts")
+
+local ModTab = Window:CreateTab("Moderation & Management", 0)
+local (alex fill ts)Section = ModTab:CreateSection("alex fill ts")
+
+local BuildTab = Window:CreateTab("Build", 0)
+local (alex fill ts)Section = BuildTab:CreateSection("alex fill ts")
+
+local ToolsTab = Window:CreateTab("Tools", 0)
+local (alex fill ts)Section = ToolsTab:CreateSection("alex fill ts")
+
+local GearsTab = Window:CreateTab("Gears", 0)
+local (alex fill ts)Section = GearsTab:CreateSection("alex fill ts")
+
+local ScriptsTab = Window:CreateTab("More Scripts", 0)
+local (alex fill ts)Section = ScriptsTab:CreateSection("alex fill ts")
