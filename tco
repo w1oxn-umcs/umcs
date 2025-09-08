@@ -1,4 +1,4 @@
---[[
+faut--[[
 
         	   MirrlandBot Script
         	by Premier Alexei Petrov
@@ -126,13 +126,6 @@ local Input = MainTab:CreateInput({
    end,
 })
 
-local FlyButton  = MainTab:CreateButton({
-   Name = "Fly",
-   Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/fly'))()
-end,
-})
-
 local EnlightenmentToggle = MainTab:CreateToggle({
     Name = "Auto-Enlightenment",
     CurrentValue = false,
@@ -140,6 +133,13 @@ local EnlightenmentToggle = MainTab:CreateToggle({
     Callback = function(Value)
         loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/enlightenment'))()
     end,
+})
+
+local FlyButton  = MainTab:CreateButton({
+   Name = "Fly",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/fly'))()
+end,
 })
 
 local BkitButton  = MainTab:CreateButton({
