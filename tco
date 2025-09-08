@@ -32,7 +32,7 @@ local Window = Rayfield:CreateWindow({
 	Name = "MirrlandBot - Hub",
 	Icon = 0,
 	LoadingTitle = "MirrlandBot - Hub",
-	LoadingSubtitle = "by Premier Alexei Petrov",
+	LoadingSubtitle = "by Comrade Alexei Petrov",
 	ShowText = "Script",
 	Theme = "Default",
 
