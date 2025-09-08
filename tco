@@ -275,6 +275,6 @@ end,
 local Button = BuildTab:CreateButton({
    Name = "Auto-Build Legacy",
    Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
+		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
 end,
 })
