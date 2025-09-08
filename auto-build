@@ -1,3 +1,21 @@
+--[[
+
+                   Mirrland Side
+      	  ComradeAlexeiP | Designing + Programming
+      	  ChatGPT (lol)  | Programming
+
+                   Rayfield Side
+                  shlex  | Designing + Programming
+                  iRay   | Programming
+                  Max    | Programming
+                  Damian | Programming
+
+                   Auto-Build Side
+      	  ComradeAlexeiP | Designing + Programming
+      	2AreYouMental110 | Programming
+
+]]
+
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
