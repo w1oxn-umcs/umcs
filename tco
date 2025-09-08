@@ -265,14 +265,14 @@ local GreenButton  = ClothingTab:CreateButton({
 local BuildTab = Window:CreateTab("Auto-Build", 0)
 local BuildSection = BuildTab:CreateSection("Auto-Build")
 
-local Button = BuildTab:CreateButton({
+local AutoBuildButton = BuildTab:CreateButton({
    Name = "Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
 end,
 })
 
-local Button = BuildTab:CreateButton({
+local LegacyAutoBuildButton = BuildTab:CreateButton({
    Name = "Auto-Build Legacy",
    Callback = function()
 		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
