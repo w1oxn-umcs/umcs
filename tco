@@ -68,20 +68,16 @@ local Window = Rayfield:CreateWindow({
 local MainTab = Window:CreateTab("Main", 0)
 local MainSection = MainTab:CreateSection("Main")
 
-local Button = MainTab:CreateButton({
-   Name = "Auto-Build",
-   Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
-end,
-})
-
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 
 local whitelist = {
     "ComradeAlexeiP",
     "ComradeDenisV",
-    "eyeyey6622"
+    "eyeyey6622",
+    "ComradeViktorS",
+    "Mahfuzumj4",
+    "SuperheroZayne6"
 }
 
 local Toggle = MainTab:CreateToggle({
@@ -264,4 +260,21 @@ local GreenButton  = ClothingTab:CreateButton({
             task.wait(0.5)
         end
     end,
+})
+
+local BuildTab = Window:CreateTab("Auto-Build", 0)
+local BuildSection = BuildTab:CreateSection("Auto-Build")
+
+local Button = BuildTab:CreateButton({
+   Name = "Auto-Build",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
+end,
+})
+
+local Button = BuildTab:CreateButton({
+   Name = "Auto-Build Legacy",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
+end,
 })
