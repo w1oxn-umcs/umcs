@@ -214,7 +214,7 @@ local ResetToggle = MainTab:CreateToggle({
 local ClothingTab = Window:CreateTab("Clothing", 0)
 local ClothingMainSection = ClothingTab:CreateSection("Main")
 
-local Standard  = ClothingTab:CreateButton({
+local Standard = ClothingTab:CreateButton({
    Name = "Set Speed",
    Callback = function()
         local commands = {";r6 a", ";speed a 9"}
