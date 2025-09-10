@@ -1,4 +1,4 @@
---[[
+F9--[[
 
         	    MirrlandBot - Hub
         	by Premier Alexei Petrov
@@ -217,7 +217,7 @@ local ClothingMainSection = ClothingTab:CreateSection("Main")
 local Standard = ClothingTab:CreateButton({
    Name = "Set Speed",
    Callback = function()
-        local commands = {";r6 a", ";speed a 9"}
+        local commands = {";r6 a", ";speed a 10"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
