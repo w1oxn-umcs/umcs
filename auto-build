@@ -72,29 +72,4 @@ local lib = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script
 local dumfix = false
 
 local SaveTab = Window:CreateTab("Save & Load Build", 0)
-local Note1Section = SaveTab:CreateSection("Script by @2AreYouMental110")
-local Note2Section = SaveTab:CreateSection("Refined by Comrade Alexei Petrov")
-local Note3Section = SaveTab:CreateSection("The script cannot tell the difference between a Toxify and a Neon, so it defaults to Neon.")
-local Note4Section = SaveTab:CreateSection("Saving spray images fails because, for some reason, they do not display.")
-local Note5Section = SaveTab:CreateSection("Signs do not function at this time.")
 
-local StopBuildingButton  = SaveTab:CreateButton({
-   Name = "Stop Building",
-   Callback = function()
-		stopped = true
-end,
-})
-
-local SkipBlockButton  = SaveTab:CreateButton({
-   Name = "Skip Blcok",
-   Callback = function()
-		skipblock = true
-end,
-})
-
-local StopBuildingButton  = SaveTab:CreateButton({
-   Name = "Stop Building",
-   Callback = function()
-		stopped = true
-end,
-})
