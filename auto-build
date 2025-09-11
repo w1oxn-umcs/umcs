@@ -71,5 +71,8 @@ local bbsbox = Instance.new("SelectionBox")
 local lib = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Lib-18698"))()
 local dumfix = false
 
+local MainTab = Window:CreateTab("Main", 0)
+local MainSection = MainTab:CreateSection("Main")
+
 local SaveTab = Window:CreateTab("Save & Load Build", 0)
 
