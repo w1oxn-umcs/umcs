@@ -16,7 +16,7 @@
 
 ]]
 
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
 	Name = "MirrlandBot - Auto-Build",
