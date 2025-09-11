@@ -278,7 +278,7 @@ local GreenButton  = ClothingTab:CreateButton({
 local BuildTab = Window:CreateTab("Auto-Build", 0)
 local BuildSection = BuildTab:CreateSection("Auto-Build")
 
-local AutoBuildButton = BuildTab:CreateButton({
+local UMCSAutoBuildButton = BuildTab:CreateButton({
    Name = "Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
