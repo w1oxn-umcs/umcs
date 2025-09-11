@@ -55,23 +55,46 @@ local Window = Rayfield:CreateWindow({
 	}
 })
 
+local success, err = pcall(function()
+local localplr = game.Players.LocalPlayer
+local mult = 4
+local built = false
+local colorbool = false
+local stopped = false
+local skipblock = false
+local on = true
+local conn = {}
+local highlight = Instance.new("Highlight")
+local mouse = localplr:GetMouse()
+local sbox = Instance.new("SelectionBox")
+local bbsbox = Instance.new("SelectionBox")
+local lib = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Lib-18698"))()
+local dumfix = false
+
 local SaveTab = Window:CreateTab("Save & Load Build", 0)
-local (alex fill ts)Section = SaveTab:CreateSection("alex fill ts")
+local Note1Section = SaveTab:CreateSection("Script by @2AreYouMental110")
+local Note2Section = SaveTab:CreateSection("Refined by Comrade Alexei Petrov")
+local Note3Section = SaveTab:CreateSection("The script cannot tell the difference between a Toxify and a Neon, so it defaults to Neon.")
+local Note4Section = SaveTab:CreateSection("Saving spray images fails because, for some reason, they do not display.")
+local Note5Section = SaveTab:CreateSection("Signs do not function at this time.")
 
-local CommandsTab = Window:CreateTab("Commands", 0)
-local (alex fill ts)Section = CommandsTab:CreateSection("alex fill ts")
+local StopBuildingButton  = SaveTab:CreateButton({
+   Name = "Stop Building",
+   Callback = function()
+		stopped = true
+end,
+})
 
-local ModTab = Window:CreateTab("Moderation & Management", 0)
-local (alex fill ts)Section = ModTab:CreateSection("alex fill ts")
+local SkipBlockButton  = SaveTab:CreateButton({
+   Name = "Skip Blcok",
+   Callback = function()
+		skipblock = true
+end,
+})
 
-local BuildTab = Window:CreateTab("Build", 0)
-local (alex fill ts)Section = BuildTab:CreateSection("alex fill ts")
-
-local ToolsTab = Window:CreateTab("Tools", 0)
-local (alex fill ts)Section = ToolsTab:CreateSection("alex fill ts")
-
-local GearsTab = Window:CreateTab("Gears", 0)
-local (alex fill ts)Section = GearsTab:CreateSection("alex fill ts")
-
-local ScriptsTab = Window:CreateTab("More Scripts", 0)
-local (alex fill ts)Section = ScriptsTab:CreateSection("alex fill ts")
+local StopBuildingButton  = SaveTab:CreateButton({
+   Name = "Stop Building",
+   Callback = function()
+		stopped = true
+end,
+})
