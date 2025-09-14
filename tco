@@ -311,7 +311,7 @@ local BuildSection = BuildTab:CreateSection("Auto-Build")
 local MirrlandAutoBuildButton = BuildTab:CreateButton({
    Name = "Mirrland Auto-Build",
    Callback = function()
-		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
 end,
 })
 
