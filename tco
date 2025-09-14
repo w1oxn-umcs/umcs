@@ -80,6 +80,29 @@ local whitelist = {
     "RealEarthWormKing"
 }
 
+local blacklist = {
+    "Fishy_cakee",
+    "TOMSHUTEST",
+    "dann09123",
+    "Survenity",
+    "SWATKoi867",
+    "WeAreTheBl0ods",
+    "64919a3807",
+    "coolmankjm",
+    "amogus_7494",
+    "okhisham",
+    "BeaTheBearCcc",
+    "Tiny_Gamer1OO",
+    "sonic_newaccgothac",
+    "HDEvent_Hoster",
+    "Moneyiscoolli",
+    "masma445",
+    "CardRobin1751",
+    "93ujs0",
+    "Mahfuzumj4",
+    "ComradeViktorS"
+}
+
 local Toggle = MainTab:CreateToggle({
     Name = "Welcome Message",
     CurrentValue = false,
@@ -93,6 +116,8 @@ Players.PlayerAdded:Connect(function(player)
     if _G.SayMessageActive then
         local greeting
         local isVIP = false
+        local isBlocked = false
+
         for _, name in ipairs(whitelist) do
             if player.Name == name then
                 isVIP = true
@@ -100,8 +125,17 @@ Players.PlayerAdded:Connect(function(player)
             end
         end
 
+        for _, name in ipairs(blacklist) do
+            if player.Name == name then
+                isBlocked = true
+                break
+            end
+        end
+
         if isVIP then
             greeting = "Greetings, Supreme Мирском Member " .. player.Name .. "."
+        elseif isBlocked then
+            greeting = "⚠️WARNING: Blacklisted user " .. player.Name .. " has joined.⚠️"
         else
             greeting = "Hello, " .. player.Name .. "."
         end
@@ -110,6 +144,7 @@ Players.PlayerAdded:Connect(function(player)
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
     end
 end)
+
 
 local Input = MainTab:CreateInput({
    Name = "Announcement",
@@ -278,10 +313,10 @@ local GreenButton  = ClothingTab:CreateButton({
 local BuildTab = Window:CreateTab("Auto-Build", 0)
 local BuildSection = BuildTab:CreateSection("Auto-Build")
 
-local UMCSAutoBuildButton = BuildTab:CreateButton({
-   Name = "Auto-Build",
+local MirrlandAutoBuildButton = BuildTab:CreateButton({
+   Name = "Mirrland Auto-Build",
    Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
+		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
 end,
 })
 
