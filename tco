@@ -286,7 +286,7 @@ end,
 })
 
 local LegacyAutoBuildButton = BuildTab:CreateButton({
-   Name = "Auto-Build Legacy",
+   Name = "[!!!POTENTIAL MALWARE!!!] Auto-Build Legacy",
    Callback = function()
 		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
 end,
