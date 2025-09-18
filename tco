@@ -152,13 +152,12 @@ local DayNightToggle = MainTab:CreateToggle({
     Flag = "DayNight",
     Callback = function(Value)
         if Value then
-            _G.HourCounterActive = true
+            _G.DayNightActive = true
             task.spawn(function()
                 local hour = 0
-                while _G.HourCounterActive do
+                while _G.DayNightActive do
                     game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hour "..hour)
-                    hour = hour + 1
-
+                    hour = (hour + 1) % 24
                     local waitTime = 60
                     if hour >= 6 and hour <= 18 then
                         waitTime = 30
@@ -166,16 +165,16 @@ local DayNightToggle = MainTab:CreateToggle({
                     if hour >= 7 and hour <= 17 then
                         waitTime = 60
                     end
-
                     task.wait(waitTime)
-                    if not _G.HourCounterActive then break end
+                    if not _G.DayNightActive then break end
                 end
             end)
         else
-            _G.HourCounterActive = false
+            _G.DayNightActive = false
         end
     end,
 })
+
 
 local Input = MainTab:CreateInput({
    Name = "Announcement",
@@ -198,6 +197,18 @@ local EnlightenmentToggle = MainTab:CreateToggle({
     Flag = "enlightenment",
     Callback = function(Value)
         loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/enlightenment'))()
+    end,
+})
+
+local SetupButton  = MainTab:CreateButton({
+   Name = "Setup Server",
+   Callback = function()
+        local commands = {";spring", ";darkspring", ";fog 0.4", ";mapnoise", ";mapsize inf", ";unmute me"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
     end,
 })
 
