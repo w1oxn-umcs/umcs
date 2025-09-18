@@ -95,7 +95,13 @@ local blacklist = {
     "93ujs0",
     "Mahfuzumj4",
     "ComradeViktorS",
-    "CalebNotSearched"
+    "CalebNotSearched",
+	"el_tricky12",
+	"Stanislavisaslav",
+	"SpeedyJaxOne",
+	"Terninmiteor",
+	"Gtavtrevormylove",
+	"grtergbreerfegrer"
 }
 
 local Toggle = MainTab:CreateToggle({
@@ -140,12 +146,42 @@ Players.PlayerAdded:Connect(function(player)
     end
 end)
 
+local DayNightToggle = MainTab:CreateToggle({
+    Name = "Day/Night Cycle",
+    CurrentValue = false,
+    Flag = "DayNight",
+    Callback = function(Value)
+        if Value then
+            _G.HourCounterActive = true
+            task.spawn(function()
+                local hour = 0
+                while _G.HourCounterActive do
+                    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hour "..hour)
+                    hour = hour + 1
+
+                    local waitTime = 60
+                    if hour >= 6 and hour <= 18 then
+                        waitTime = 30
+                    end
+                    if hour >= 7 and hour <= 17 then
+                        waitTime = 60
+                    end
+
+                    task.wait(waitTime)
+                    if not _G.HourCounterActive then break end
+                end
+            end)
+        else
+            _G.HourCounterActive = false
+        end
+    end,
+})
 
 local Input = MainTab:CreateInput({
    Name = "Announcement",
    CurrentValue = "",
    PlaceholderText = "Write announcement here",
-   RemoveTextAfterFocusLost = true,
+   RemoveTextAfterFocusLost = false,
    Flag = "Input1",
    Callback = function(Text)
        local fancyIntro = "📢ANNOUNCEMENT📢: "
