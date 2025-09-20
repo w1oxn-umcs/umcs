@@ -158,7 +158,7 @@ local DayNightToggle = MainTab:CreateToggle({
         if Value then
             _G.DayNightActive = true
             task.spawn(function()
-                local hour = 0
+                local hour = 1
                 while _G.DayNightActive do
                     game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hour "..hour)
                     hour = (hour + 1) % 24
