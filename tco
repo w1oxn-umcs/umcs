@@ -157,20 +157,25 @@ local DayNightToggle = MainTab:CreateToggle({
         if Value then
             _G.DayNightActive = true
             task.spawn(function()
-                local hour = 1
+                local hour = 6 -- start at 6 so rules trigger immediately
                 while _G.DayNightActive do
+                    -- send current hour
                     game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hour "..hour)
-                    hour = (hour + 1) % 24
 
-                    local waitTime = 60 -- default wait
+                    -- determine wait time
+                    local waitTime
                     if hour == 6 or hour == 18 then
                         waitTime = 30
                     elseif hour >= 7 and hour <= 17 then
                         waitTime = 60
+                    else
+                        waitTime = 60 -- wait normally outside 6-18
                     end
 
                     task.wait(waitTime)
-                    if not _G.DayNightActive then break end
+
+                    -- increment hour and loop 0-23
+                    hour = (hour + 1) % 24
                 end
             end)
         else
@@ -178,9 +183,6 @@ local DayNightToggle = MainTab:CreateToggle({
         end
     end,
 })
-
-
-
 
 local Input = MainTab:CreateInput({
    Name = "Announcement",
