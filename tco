@@ -161,14 +161,19 @@ local DayNightToggle = MainTab:CreateToggle({
                 while _G.DayNightActive do
                     game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hour "..hour)
                     hour = (hour + 1) % 24
-                    local waitTime = 60
+
+                    local waitTime
                     if hour >= 6 and hour <= 18 then
                         waitTime = 30
+                        if hour >= 7 and hour <= 17 then
+                            waitTime = 60
+                        end
                     end
-                    if hour >= 7 and hour <= 17 then
-                        waitTime = 60
+
+                    if waitTime then
+                        task.wait(waitTime)
                     end
-                    task.wait(waitTime)
+
                     if not _G.DayNightActive then break end
                 end
             end)
@@ -177,6 +182,7 @@ local DayNightToggle = MainTab:CreateToggle({
         end
     end,
 })
+
 
 
 local Input = MainTab:CreateInput({
