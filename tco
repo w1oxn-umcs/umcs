@@ -66,9 +66,7 @@ local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 
 local whitelist = {
-    "ComradeAlexeiP",
-    "RealEarthWormKing",
-    "any38678"
+    "ComradeAlexeiP"
 }
 
 local blacklist = {
@@ -139,7 +137,7 @@ Players.PlayerAdded:Connect(function(player)
         end
 
         if isVIP then
-            greeting = "Greetings, Supreme Мирском Member " .. player.Name .. "."
+            greeting = "Greetings, Premier of the U.M.C.S. " .. player.Name .. "."
         elseif isBlocked then
             greeting = "⚠️WARNING: Blacklisted user " .. player.Name .. " has joined.⚠️"
         else
