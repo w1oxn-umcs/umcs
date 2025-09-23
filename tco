@@ -69,46 +69,7 @@ local whitelist = {
     "ComradeAlexeiP"
 }
 
-local blacklist = {
-    "Fishy_cakee",
-    "TOMSHUTEST",
-    "dann09123",
-    "Survenity",
-    "SWATKoi867",
-    "WeAreTheBl0ods",
-    "64919a3807",
-    "coolmankjm",
-    "amogus_7494",
-    "okhisham",
-    "BeaTheBearCcc",
-    "Tiny_Gamer1OO",
-    "sonic_newaccgothac",
-    "HDEvent_Hoster",
-    "Moneyiscoolli",
-    "masma445",
-    "CardRobin1751",
-    "93ujs0",
-    "Mahfuzumj4",
-    "ComradeViktorS",
-    "CalebNotSearched",
-	"el_tricky12",
-	"Stanislavisaslav",
-	"SpeedyJaxOne",
-	"Terninmiteor",
-	"Gtavtrevormylove",
-	"grtergbreerfegrer",
-	"teleyobiggesthater",
-	"teleyoo",
-	"Omar82Ali",
-	"Astupidalt4",
-	"eyeyey6622",
-	"ComradeDenisV",
-	"RealEarthWormKing",
-	"XBboys07",
-	"eeeeeeol3l33ll3l3l3",
-	"MirrlandBot3",
-	"kaishob"
-}
+loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/blacklist'))()
 
 local Toggle = MainTab:CreateToggle({
     Name = "Welcome Message",
