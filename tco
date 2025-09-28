@@ -69,7 +69,7 @@ local whitelist = {
     "ComradeAlexeiP"
 }
 
-loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/blacklist'))()
+local blacklist = loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/blacklist'))()
 
 local Toggle = MainTab:CreateToggle({
     Name = "Welcome Message",
