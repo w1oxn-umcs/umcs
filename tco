@@ -191,68 +191,6 @@ local BkitButton  = MainTab:CreateButton({
 end,
 })
 
-local R6Toggle = MainTab:CreateToggle({
-    Name = "R6 Crash",
-    CurrentValue = false,
-    Flag = "r6",
-    Callback = function(Value)
-        if Value then
-            _G.Activo = true
-            task.spawn(function()
-                while _G.Activo do
-                    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(";r6 o")
-                    task.wait(0.001)
-                end
-            end)
-        else
-            _G.Activo = false
-        end
-    end,
-})
-
-local LockdownToggle = MainTab:CreateToggle({
-    Name = "Lockdown",
-    CurrentValue = false,
-    Flag = "lockdown",
-    Callback = function(Value)
-        if Value then
-            _G.Active = true
-            task.spawn(function()
-                local commands = {";freeze o", ";glitch o", ";mute o", ";jail o", ";iq 0 o", ";blind o", ";myopic o", ";clearinv o"}
-                while _G.Active do
-                    for _, cmd in ipairs(commands) do
-                        game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
-                        task.wait(0.001)
-                        if not _G.Active then break end
-                    end
-                end
-            end)
-        else
-            _G.Active = false
-        end
-    end,
-})
-
-local ResetToggle = MainTab:CreateToggle({
-    Name = "Reset",
-    CurrentValue = false,
-    Flag = "reset",
-    Callback = function(Value)
-        if Value then
-            _G.ResetActive = true
-            task.spawn(function()
-                while _G.ResetActive do
-                    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(";reset o")
-                    task.wait(0.001)
-                    if not _G.ResetActive then break end
-                end
-            end)
-        else
-            _G.ResetActive = false
-        end
-    end,
-})
-
 local ClothingTab = Window:CreateTab("Clothing", 0)
 local ClothingMainSection = ClothingTab:CreateSection("Main")
 
@@ -260,13 +198,13 @@ local Standard = ClothingTab:CreateButton({
    Name = "Set Speed",
    Callback = function()
         local commands = {";speed a 10"}
-
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
             task.wait(0.5)
         end
     end,
 })
+
 local ClothingSection = ClothingTab:CreateSection("Мирском")
 
 local MirskomButton  = ClothingTab:CreateButton({
