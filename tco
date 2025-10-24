@@ -70,19 +70,48 @@ local whitelist = {
     "eyeyey6622",
     "ComradeDenisV", -- AlT OF: eyeyey6622
     "RealEarthWormKing",
-    "RaidenovitchRaikov6",
-    "SWATKoi867",
-    "ComradeDmitriW" -- ALT OF: SWATKoi867
+    "Lilcoreymery",
+    "Comminuted"
 }
 
 local blacklist = {
+    "RedrawnRuben",
+    "SWATKoi867",
+    "Dustblaize",
+    "XTRAr21",
+    "Account9198",
+    "f_oxpiratefnar35",
+    "MoniqueNatalie",
+    "sjtxm",
+    "coolescola_3",
+    "King_Cat1116",
+    "Meme_lord123400",
+    "FireBoyVox",
+    "Panter24418",
+    "itzz_rblxmaya",
+    "Ohiopro_doorsfan",
+    "bonnie57797",
+    "ALEXSTRANDDO",
+    "Thelando100",
+    "A_bear55555",
+    "isRAELLUIZUTUF7UH",
+    "KamustaJakeM3",
+    "Proton_RA",
+    "post_tropical",
+    "Isabellagato11653",
+    "wanna_beChosen",
+    "vitaspitas12345",
+    "jzznxd",
+    "d1g1tal_top1",
+    "Bing_MicrosoftWindow",
+    "ssssssdrhgi00",
     "dann09123",
     "Survenity",
     "93ujs0",
     "Mahfuzumj4",
     "ComradeViktorS",
     "el_tricky12",
-    "afdg544"
+    "afdg544",
 }
 
 local Toggle = MainTab:CreateToggle({
