@@ -68,7 +68,7 @@ local TextChatService = game:GetService("TextChatService")
 local whitelist = {
     "ComradeAlexeiP",
     "eyeyey6622",
-    "ComradeDenisV", -- AlT OF: eyeyey6622
+    "ComradeDenisV", -- ALT OF: eyeyey6622
     "RealEarthWormKing",
     "Lilcoreymery",
     "Comminuted"
