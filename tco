@@ -203,6 +203,66 @@ local Input = MainTab:CreateInput({
    end,
 })
 
+local GroupCheckToggle = MainTab:CreateToggle({
+    Name = "UMCS Tag",
+    CurrentValue = false,
+    Flag = "UMCSTagToggle",
+    Callback = function(Value)
+        _G.UMCSTagActive = Value
+
+        local GROUP_ID = 35338076
+
+        if Value then
+            game.Players.PlayerAdded:Connect(function(plr)
+                local function addTag(char)
+                    coroutine.wrap(function()
+                        char:WaitForChild("Head", math.huge)
+                        local bbgui = Instance.new("BillboardGui")
+                        bbgui.Size = UDim2.new(10, 0, 1.5, 0)
+                        bbgui.StudsOffset = Vector3.new(0, 3.5, 0)
+                        bbgui.Parent = char.Head
+
+                        local title = Instance.new("TextLabel")
+                        title.TextScaled = true
+                        title.BackgroundTransparency = 1
+                        title.Size = UDim2.new(1, 0, 1, 0)
+                        title.Position = UDim2.new(0, 0, -0.5, 0)
+                        title.TextStrokeTransparency = 0
+
+                        local info = Instance.new("TextLabel")
+                        info.TextScaled = true
+                        info.BackgroundTransparency = 1
+                        info.Size = UDim2.new(1, 0, 0.5, 0)
+                        info.Position = UDim2.new(0, 0, 0.5, 0)
+                        info.TextStrokeTransparency = 0
+
+                        if plr:IsInGroup(GROUP_ID) then
+                            title.Text = "Union of Mirrland Communist States"
+                            title.TextColor3 = Color3.fromRGB(120, 0, 0)
+                            info.Text = plr:GetRoleInGroup(GROUP_ID)
+                        else
+                            title.Text = "Not in the Union of Mirrland Communist States"
+                            title.TextColor3 = Color3.fromRGB(100, 100, 100)
+                            info.Text = ""
+                        end
+
+                        title.Parent = bbgui
+                        info.TextColor3 = title.TextColor3
+                        info.Parent = bbgui
+                    end)()
+                end
+
+                if plr.Character then
+                    addTag(plr.Character)
+                end
+
+                plr.CharacterAdded:Connect(addTag)
+            end)
+        end
+    end,
+})
+
+
 local FlyButton  = MainTab:CreateButton({
    Name = "Fly",
    Callback = function()
