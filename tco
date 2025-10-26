@@ -326,7 +326,7 @@ local BuildTab = Window:CreateTab("Auto-Build", 0)
 local BuildSection = BuildTab:CreateSection("Auto-Build")
 
 local MirrlandAutoBuildButton = BuildTab:CreateButton({
-   Name = "Mirrland Auto-Build",
+   Name = "WIP - Mirrland Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
 end,
