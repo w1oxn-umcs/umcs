@@ -245,12 +245,24 @@ local MirskomButton  = ClothingTab:CreateButton({
     end,
 })
 
-local ArmySection = ClothingTab:CreateSection("Military")
+local ArmySection = ClothingTab:CreateSection("Services")
 
 local ArmyButton  = ClothingTab:CreateButton({
-   Name = "Military - People's Army",
+   Name = "Military - People's Army (Cap",
    Callback = function()
-        local commands = {";mute me", ";r6 n", ";wear n 11539563275", ";wear n 76196788199904", ";wear n 113055068133533", ";unmute me"}
+        local commands = {";mute me", ";r6 n", ";wear n 106673971448303", ";wear n 76196788199904", ";wear n 113055068133533", ";unmute me"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local ArmyButton  = ClothingTab:CreateButton({
+   Name = "Military - People's Army (Ushanka)",
+   Callback = function()
+        local commands = {";mute me", ";r6 n", ";wear n 133329667039509", ";wear n 76196788199904", ";wear n 113055068133533", ";unmute me"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -263,6 +275,18 @@ local SailorButton  = ClothingTab:CreateButton({
    Name = "Military - Sailor",
    Callback = function()
         local commands = {";mute me", ";r6 n", ";wear n 57134170", ";wear n 76771251936005", ";wear n 106761591124278", ";unmute me"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local BorderButton  = ClothingTab:CreateButton({
+   Name = "Military - Border Guard Uniform",
+   Callback = function()
+        local commands = {";mute me", ";r6 n", ";wear n 97787988455285", ";wear n 85100278117650", ";wear n 107159464858349", ";unmute me"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
