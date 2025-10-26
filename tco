@@ -204,7 +204,7 @@ local Input = MainTab:CreateInput({
 })
 
 local GroupCheckToggle = MainTab:CreateToggle({
-    Name = "UMCS Tag",
+    Name = "Member Tag",
     CurrentValue = false,
     Flag = "UMCSTagToggle",
     Callback = function(Value)
