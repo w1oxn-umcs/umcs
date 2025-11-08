@@ -13,10 +13,6 @@
                   Max    | Programming
                   Damian | Programming
 
-                   Auto-Build Side
-      	  ComradeAlexeiP | Designing + Programming
-      	2AreYouMental110 | Programming
-
 ]]
 
 
@@ -401,21 +397,4 @@ local GreenButton  = ClothingTab:CreateButton({
             task.wait(0.5)
         end
     end,
-})
-
-local BuildTab = Window:CreateTab("Auto-Build", 0)
-local BuildSection = BuildTab:CreateSection("Auto-Build")
-
-local MirrlandAutoBuildButton = BuildTab:CreateButton({
-   Name = "WIP - Mirrland Auto-Build",
-   Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/auto-build'))()
-end,
-})
-
-local LegacyAutoBuildButton = BuildTab:CreateButton({
-   Name = "[!!! POTENTIAL MALWARE !!!] Auto-Build Legacy",
-   Callback = function()
-		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
-end,
 })
