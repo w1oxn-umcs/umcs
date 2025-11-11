@@ -67,12 +67,11 @@ local whitelist = {
     "ComradeDenisV", -- ALT OF: eyeyey6622
     "RealEarthWormKing",
     "Lilcoreymery",
-    "Comminuted"
+    "SWATKoi867"
 }
 
 local blacklist = {
     "RedrawnRuben",
-    "SWATKoi867",
     "Dustblaize",
     "XTRAr21",
     "Account9198",
@@ -108,6 +107,7 @@ local blacklist = {
     "ComradeViktorS",
     "el_tricky12",
     "afdg544",
+    "Omar82Ali",
 }
 
 local Toggle = MainTab:CreateToggle({
@@ -233,11 +233,11 @@ local GroupCheckToggle = MainTab:CreateToggle({
                         info.TextStrokeTransparency = 0
 
                         if plr:IsInGroup(GROUP_ID) then
-                            title.Text = "Union of Mirrland Communist States"
+                            title.Text = "Member of U.M.C.S."
                             title.TextColor3 = Color3.fromRGB(120, 0, 0)
                             info.Text = plr:GetRoleInGroup(GROUP_ID)
                         else
-                            title.Text = "Not in the Union of Mirrland Communist States"
+                            title.Text = "Guest"
                             title.TextColor3 = Color3.fromRGB(100, 100, 100)
                             info.Text = ""
                         end
@@ -263,13 +263,6 @@ local FlyButton  = MainTab:CreateButton({
    Name = "Fly",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/fly'))()
-end,
-})
-
-local BkitButton  = MainTab:CreateButton({
-   Name = "Steal B-TOOLS",
-   Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/btools'))()
 end,
 })
 
