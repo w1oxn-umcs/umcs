@@ -69,7 +69,8 @@ local whitelist = {
     "Lilcoreymery",
     "Comminuted",
     "SWATKoi867",
-    "SpeedyJaxOne"
+    "SpeedyJaxOne",
+    "MythicsGarden593"
 }
 
 local blacklist = {
