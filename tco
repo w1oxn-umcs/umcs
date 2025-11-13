@@ -116,6 +116,7 @@ local blacklist = {
     "ilikepoland1215",
     "Uljon11010",
     "Omar82Ali",
+    "mE_withthecool",
 }
 
 local Toggle = MainTab:CreateToggle({
