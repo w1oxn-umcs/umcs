@@ -209,8 +209,8 @@ local Input = MainTab:CreateInput({
    end,
 })
 
-local FlyButton  = MainTab:CreateButton({
-   Name = "Fly",
+local ChatButton  = MainTab:CreateButton({
+   Name = "Chatlog",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/chatlog'))()
 end,
