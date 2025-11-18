@@ -413,7 +413,7 @@ local GreenButton  = ClothingTab:CreateButton({
 })
 
 local AutoTab = Window:CreateTab("Auto-Build", 0)
-local MainSection = AutoTab:CreateSection("Main")
+local AutoMainSection = AutoTab:CreateSection("Main")
 
 local AutoButton  = AutoTab:CreateButton({
    Name = "Auto-Build",
