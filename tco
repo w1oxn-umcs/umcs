@@ -412,10 +412,10 @@ local GreenButton  = ClothingTab:CreateButton({
     end,
 })
 
-local ClothingTab = Window:CreateTab("Auto-Build", 0)
-local MainSection = ClothingTab:CreateSection("Main")
+local AutoTab = Window:CreateTab("Auto-Build", 0)
+local MainSection = AutoTab:CreateSection("Main")
 
-local AutoButton  = MainTab:CreateButton({
+local AutoButton  = AutoTab:CreateButton({
    Name = "Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
