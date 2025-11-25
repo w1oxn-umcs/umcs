@@ -71,8 +71,7 @@ local FirstSection = FirstTab:CreateSection("Dear TomazDev,\n" ..
 "cause any significant issues.\n\n" ..
 "If there are any concerns, I am open to adjusting or removing anything necessary.\n" ..
 "Thank you for your understanding.")
-local Label = FirstTab:CreateLabel("Label Example", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
-
+local Paragraph = FirstTab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph Example"})
 
 local MainTab = Window:CreateTab("Main", 0)
 local MainSection = MainTab:CreateSection("Main")
