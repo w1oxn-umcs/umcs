@@ -63,7 +63,14 @@ local Window = Rayfield:CreateWindow({
 })
 
 local FirstTab = Window:CreateTab("Message to TomazDev", 0)
-local FirstSection = FirstTab:CreateSection("test")
+local FirstSection = FirstTab:CreateSection("Dear TomazDev,\n" ..
+"I kindly ask that you please do not ban me. This script is strictly for personal use\n" ..
+"and is not intended to harm, disrupt, or negatively impact your game in any way.\n" ..
+"I fully respect the work you put into the game and I am not attempting to exploit,\n" ..
+"damage, or interfere with its normal operation. My usage is minimal and does not\n" ..
+"cause any significant issues.\n\n" ..
+"If there are any concerns, I am open to adjusting or removing anything necessary.\n" ..
+"Thank you for your understanding.")
 
 local MainTab = Window:CreateTab("Main", 0)
 local MainSection = MainTab:CreateSection("Main")
