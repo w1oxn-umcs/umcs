@@ -1,5 +1,12 @@
 --[[
 
+Dear TomazDev,
+I kindly ask that you please do not ban me. This script is strictly for personal use and is not intended to harm, disrupt, or negatively impact your game in any way.
+I fully respect the work you put into the game and I am not attempting to exploit, damage, or interfere with its normal operation. My usage is minimal and does not cause any significant issues.
+
+If there are any concerns, I am open to adjusting or removing anything necessary.
+Thank you for your understanding.
+
         	    MirrlandBot - Hub
         	by Comrade Alexei Petrov
 
@@ -54,6 +61,14 @@ local Window = Rayfield:CreateWindow({
 		Key = {"Hello"}
 	}
 })
+
+local FirstTab = Window:CreateTab("Message to TomazDev", 0)
+local FirstSection = FirstTab:CreateSection("Dear TomazDev,
+I kindly ask that you please do not ban me. This script is strictly for personal use and is not intended to harm, disrupt, or negatively impact your game in any way.
+I fully respect the work you put into the game and I am not attempting to exploit, damage, or interfere with its normal operation. My usage is minimal and does not cause any significant issues.
+
+If there are any concerns, I am open to adjusting or removing anything necessary.
+Thank you for your understanding.")
 
 local MainTab = Window:CreateTab("Main", 0)
 local MainSection = MainTab:CreateSection("Main")
@@ -277,13 +292,6 @@ local GroupCheckToggle = MainTab:CreateToggle({
             end)
         end
     end,
-})
-
-local FlyButton  = MainTab:CreateButton({
-   Name = "Fly",
-   Callback = function()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/fly'))()
-end,
 })
 
 local ClothingTab = Window:CreateTab("Clothing", 0)
