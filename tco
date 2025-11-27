@@ -76,11 +76,14 @@ local whitelist = {
     "ComradeAlexeiP",
     "eyeyey6622",
     "ComradeDenisV", -- ALT OF: eyeyey6622
-    "RealEarthWormKing",
+    "OrangeTreeForLife",
     "Lilcoreymery",
     "Comminuted",
     "SWATKoi867",
     "SpeedyJaxOne",
+    "jackf240",
+    "Moneyiscoolli",
+    "thesmithender",
 }
 
 local blacklist = {
