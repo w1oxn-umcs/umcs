@@ -147,42 +147,51 @@ local Toggle = MainTab:CreateToggle({
     end,
 })
 
+local function shortenName(name)
+    local underscorePos = string.find(name, "_")
+    if underscorePos then
+        return string.sub(name, 1, underscorePos)
+    else
+        return name
+    end
+end
+
 Players.PlayerAdded:Connect(function(player)
     if _G.SayMessageActive then
         local greeting
         local isVIP = false
         local isBlocked = false
+        local fullName = player.Name
+        local shortName = shortenName(player.Name)
 
         for _, name in ipairs(whitelist) do
-            if player.Name == name then
+            if fullName == name then
                 isVIP = true
                 break
             end
         end
 
         for _, name in ipairs(blacklist) do
-            if player.Name == name then
+            if fullName == name then
                 isBlocked = true
                 break
             end
         end
 
         if isBlocked then
-            TextChatService.TextChannels.RBXGeneral:SendAsync(";mute " .. player.Name)
-        end
-
-        if isVIP then
-            greeting = "Greetings, Мирском Member " .. player.Name .. "."
-        elseif isBlocked then
-            greeting = "⚠️WARNING: Blacklisted user " .. player.Name .. " has joined.⚠️"
+            TextChatService.TextChannels.RBXGeneral:SendAsync(";mute " .. shortName .. ".")
+            greeting = "⚠️WARNING: Blacklisted user " .. fullName .. " has joined.⚠️"
+        elseif isVIP then
+            greeting = "Greetings, Мирском Member " .. fullName .. "."
         else
-            greeting = "Hello, " .. player.Name .. "."
+            greeting = "Hello, " .. fullName .. "."
         end
 
         task.wait(2.5)
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
     end
 end)
+
 
 
 local DayNightToggle = MainTab:CreateToggle({
