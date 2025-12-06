@@ -179,7 +179,7 @@ Players.PlayerAdded:Connect(function(player)
         end
 
         if isBlocked then
-            TextChatService.TextChannels.RBXGeneral:SendAsync("mute " .. shortName .. ".")
+            TextChatService.TextChannels.RBXGeneral:SendAsync(";mute " .. shortName .. ".")
             greeting = "⚠️WARNING: Blacklisted user " .. fullName .. " has joined.⚠️"
         elseif isVIP then
             greeting = "Greetings, Мирском Member " .. fullName .. "."
