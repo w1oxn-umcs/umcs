@@ -129,7 +129,6 @@ local blacklist = {
     "aaroncs5",
     "ilikepoland1215",
     "Uljon11010",
-    "Omar82Ali",
     "mE_withthecool",
     "ClatonHere",
     "classicaltacount",
@@ -175,7 +174,7 @@ Players.PlayerAdded:Connect(function(player)
             greeting = "Hello, " .. player.Name .. "."
         end
 
-        task.wait(0.5)
+        task.wait(2.5)
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
     end
 end)
