@@ -166,8 +166,12 @@ Players.PlayerAdded:Connect(function(player)
             end
         end
 
+        if isBlocked then
+            TextChatService.TextChannels.RBXGeneral:SendAsync(";mute " .. player.Name)
+        end
+
         if isVIP then
-            greeting = "Greetings, Supreme Мирском Member " .. player.Name .. "."
+            greeting = "Greetings, Мирском Member " .. player.Name .. "."
         elseif isBlocked then
             greeting = "⚠️WARNING: Blacklisted user " .. player.Name .. " has joined.⚠️"
         else
@@ -178,6 +182,7 @@ Players.PlayerAdded:Connect(function(player)
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
     end
 end)
+
 
 local DayNightToggle = MainTab:CreateToggle({
     Name = "Day/Night Cycle",
