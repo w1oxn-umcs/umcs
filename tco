@@ -80,7 +80,6 @@ local whitelist = {
     "Lilcoreymery",
     "Comminuted",
     "SWATKoi867",
-    "SpeedyJaxOne",
     "jackf240",
     "Moneyiscoolli",
     "thesmithender",
@@ -181,7 +180,8 @@ Players.PlayerAdded:Connect(function(player)
 
         if isBlocked then
             TextChatService.TextChannels.RBXGeneral:SendAsync(";mute " .. shortName .. ".")
-            greeting = "⚠️WARNING: Blacklisted user " .. fullName .. " has joined.⚠️"
+            TextChatService.TextChannels.RBXGeneral:SendAsync(";noclip " .. shortName .. ".")
+            greeting = "⚠️Blacklisted user " .. fullName .. " has joined.⚠️"
         elseif isVIP then
             greeting = "Greetings, Мирском Member " .. fullName .. "."
         else
@@ -192,8 +192,6 @@ Players.PlayerAdded:Connect(function(player)
         TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
     end
 end)
-
-
 
 local DayNightToggle = MainTab:CreateToggle({
     Name = "Day/Night Cycle",
