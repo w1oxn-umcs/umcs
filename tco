@@ -7,8 +7,8 @@ I fully respect the work you put into the game and I am not attempting to exploi
 If there are any concerns, I am open to adjusting or removing anything necessary.
 Thank you for your understanding.
 
-        	    MirrlandBot - Hub
-        	by Comrade Alexei Petrov
+        		       Līvāni
+    	Following our Premier Petrov's footsteps
 
                    Mirrland Side
       	  ComradeAlexeiP | Designing + Programming
@@ -26,11 +26,11 @@ Thank you for your understanding.
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-	Name = "MirrlandBot - Hub",
-	Icon = 0,
-	LoadingTitle = "MirrlandBot - Hub",
-	LoadingSubtitle = "by Comrade Alexei Petrov",
-	ShowText = "Script",
+	Name = "Līvāni",
+	Icon = 133146869933827,
+	LoadingTitle = "Līvāni",
+	LoadingSubtitle = "Following our Premier Petrov's footsteps",
+	ShowText = "Līvāni",
 	Theme = "Default",
 
 	ToggleUIKeybind = "K",
@@ -45,8 +45,8 @@ local Window = Rayfield:CreateWindow({
 	},
 
 	Discord = {
-		Enabled = false,
-		Invite = "noinvitelink",
+		Enabled = true,
+		Invite = "mFCgHTK7wf",
 		RememberJoins = true
 	},
 
