@@ -29,7 +29,7 @@ local Window = Rayfield:CreateWindow({
 	Name = "Līvāni",
 	Icon = 133146869933827,
 	LoadingTitle = "Līvāni",
-	LoadingSubtitle = "Following Premier Petrov's footsteps",
+	LoadingSubtitle = "Following our Premier's footsteps",
 	ShowText = "Līvāni",
 	Theme = "Default",
 
