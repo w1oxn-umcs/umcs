@@ -76,8 +76,6 @@ end
 local lib = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Lib-18698"))()
 lib.makelib("The Chosen One EXTRAS (BY 2AREYOUMENTAL110)")
 local buildtab = lib.maketab("build")
-local tooltab = lib.maketab("tools")
-local geartab = lib.maketab("gears")
 local bsaltab = lib.maketab("build save/load")
 lib.makelabel("if you see normalxsx / btc_normalxsx / normalxsx_windows1 / A_Normalxsx / A_NormalxsxWindows1 that is also me",buildtab)
 lib.makelabel("\u{26A0}\u{FE0F} READ BELOW",buildtab)
@@ -1912,6 +1910,74 @@ local onrender = game:GetService("RunService").Heartbeat:Connect(function()
 		localplr.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
 	end
 end)
+lib.maketoggle("Auto Permanent Enlighten (PATCHED)",scripttab,function(bool)
+	autoperm = bool
+end)
+lib.maketoggle("Spam reset",scripttab,function(bool)
+	alwaysreset = bool
+end)
+lib.maketoggle("Spam reset all",scripttab,function(bool)
+	alwaysresetall = bool
+end)
+lib.makelabel("Since the chosen one updated to the new roblox chat, the no chat logger no longer works, use the 'clear chat logs' thing.",scripttab)
+function clearclogs(amt)
+	for i=1,amt do
+		coroutine.wrap(function()
+			say(";","system")
+		end)()
+	end
+end
+lib.makelabel("The clear chat of logs makes it so that if someone reports you, roblox will look into your first 10-15 chats (which will be cleared) and u wont get banned",scripttab)
+lib.makelabel("(however, you have to manually clear it and you cant chat for a few seconds)",scripttab)
+lib.makelabel("clear chat log by vxsty",scripttab)
+lib.makebutton("Clear chat of logs (10)",scripttab,function()
+	clearclogs(10)
+end)
+lib.makebutton("Clear chat of logs (20)",scripttab,function()
+	clearclogs(20)
+end)
+local ccol = false
+lib.maketoggle("Always clear chat of logs (RECOMMENDED, COMMANDS WONT WORK WHEN ENABLED)",scripttab,function(bool)
+	ccol = bool
+	while ccol do
+		task.wait()
+		clearclogs(5)
+	end
+end)
+local threeemdash = "\u{2E3B}"
+lib.maketextbox("Say Long Message (broken D:)",scripttab,function(input)
+	if input == "" or input == nil then
+		input = "200"
+	end
+	input = tonumber(input)
+	say(string.rep(threeemdash,input),"All")
+end)
+lib.makelabel("warning",scripttab)
+lib.makebutton("Execute Fling All Script",scripttab,function()
+	if loadfile ~= nil and writefile ~= nil and readfile ~= nil then
+		local cache = nil
+		local success,err = pcall(function()
+			cache = readfile("CachedFlingAll.txt")
+		end)
+		if not cache then
+			cache = game:HttpGet("https://rawscripts.net/raw/Universal-Script-FLING-ALL-SCRIPT-17590")
+			writefile("CachedFlingAll.txt",cache)
+		end
+		loadstring(cache)()
+	else
+		loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-FLING-ALL-SCRIPT-17590"))()
+	end
+end)
+lib.makelabel("warning",scripttab)
+lib.makebutton("Join VC Server",scripttab,function()
+	game:GetService("TeleportService"):Teleport(12943247001,localplr)
+end)
+lib.makelabel("warning",scripttab)
+local dbut = nil
+dbut = lib.makebutton("Execute Zte Hub (HAS SILENT COMMAND LOGGER!)",scripttab,function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/khanh-lol/Ztehub/refs/heads/main/zte"))() 
+	dbut:Destroy()
+end)
 local savefile = "tcospamcommandssave.txt"
 local spamtxtssave = {}
 local spamtxtinstance = {}
@@ -1942,6 +2008,68 @@ function addcmd(txt,save,index,start)
 	if not truncatetxt then
 		previewcmd = txt
 	end
+	local tog = nil
+	if spamcmd then
+		commands[txt] = start or false
+		tog = lib.maketoggle("Spam Command/Text ("..previewcmd.." "..tostring(num)..")",commandtab,function(bool)
+			commands[txt] = bool
+		end,start or nil)
+	else
+		commands[txt] = false
+		tog = lib.makebutton("Say Command/Text ("..previewcmd.." "..tostring(num)..")",commandtab,function()
+			if not attemptreset then
+				say(txt,"system")
+			end
+		end)
+	end
+	spamtxtinstance[spamnum] = {tog,txt}
+	if save then
+		writefile(savefile,http:JSONEncode(spamtxtssave))
+	end
+	for i,v in pairs(spamtxtinstance) do
+		v[1].LayoutOrder = i
+	end
+end
+lib.maketoggle("Truncate/Shorten Text",commandtab,function(bool)
+	truncatetxt = bool
+	for i,v in pairs(spamtxtinstance) do
+		v[1]:Destroy()
+		--spamtxtinstance[i] = nil
+	end
+	for i,v in pairs(spamtxtssave) do
+		i = tonumber(i)
+		addcmd(v,false,i,commands[v])
+	end
+end,true)
+lib.maketoggle("Spam Commands",commandtab,function(bool)
+	spamcmd = bool
+	for i,v in pairs(spamtxtinstance) do
+		v[1]:Destroy()
+		--spamtxtinstance[i] = nil
+	end
+	for i,v in pairs(spamtxtssave) do
+		i = tonumber(i)
+		addcmd(v,false,i,commands[v])
+	end
+end,true)
+lib.maketextbox("Enter Command",commandtab,function(txt)
+	txt = string.gsub(txt,'"','\"')
+	addcmd(txt,true)
+end)
+lib.maketextbox("Remove Command (put exact command)",commandtab,function(txt)
+	for i,v in pairs(spamtxtssave) do
+		if v == txt then
+			spamtxtssave[i] = nil
+		end
+	end
+	commands[txt] = false
+	for i,v in pairs(spamtxtinstance) do
+		if v[2] == txt then
+			v[1]:Destroy()
+		end
+	end
+	writefile(savefile,http:JSONEncode(spamtxtssave))
+end)
 local bindfunc = Instance.new("BindableFunction")
 bindfunc.OnInvoke = function(prompt)
 	if prompt == "Yes" then
@@ -1954,6 +2082,35 @@ bindfunc.OnInvoke = function(prompt)
 		writefile(savefile,http:JSONEncode(spamtxtssave))
 	end
 end
+lib.makebutton("Reset All Commands",commandtab,function()
+	starterui:SetCore("SendNotification",{Title="Delete Commands?",Text="Are you sure you want to reset the commands?",Duration=5,Callback=bindfunc,Button1="Yes",Button2="No"})
+end)
+lib.makelabel("",commandtab)
+local s,e = pcall(function()
+	local save = readfile(savefile)
+	if save then
+		spamtxtssave = http:JSONDecode(save) or {}
+		for i,v in pairs(spamtxtssave) do
+			i = tonumber(i)
+			addcmd(v,false,i)
+			--elseif i == "max" then
+				--spamnum = v
+		end
+	end
+end)
+
+local spychat = true
+lib.maketoggle("SPY CHAT",modtab,function(bool)
+	spychat = bool
+end,true)
+local namecolors = {
+	peasant={150,103,102},
+	arken={4,175,236},
+	admin={245,205,48},
+	hidden={255,0,0},
+	iqgenius={255,179,179},
+	iqdumb={200,0,0}
+}
 if isog then
 	namecolors.peasant = {128,128,128}
 end
@@ -2024,6 +2181,31 @@ function oimremake(mdata)
 	end
 end
 game.TextChatService.OnIncomingMessage = oimremake
+
+local blocktxt = lib.makelabel("No Block Selected",modtab)
+lib.maketoggle("Outline Selected Block",modtab,function(bool)
+	osb = bool
+	if osb then
+		sbox.LineThickness = 0.05
+	else
+		sbox.LineThickness = -1
+	end
+end)
+lib.makelabel("",modtab)
+local bboxtxt = lib.makelabel("No Boombox Selected",modtab)
+local bbid = ""
+lib.makebutton("Copy Boombox Sound ID",modtab,function()
+	setclipboard(bbid)
+end)
+local osbb = false
+lib.maketoggle("Outline Selected Boombox",modtab,function(bool)
+	osbb = bool
+	if osbb then
+		bbsbox.LineThickness = 0.1
+	else
+		bbsbox.LineThickness = -1
+	end
+end)
 local boomboxnames = {}
 boomboxnames["SuperFlyGoldBoombox"] = true
 boomboxnames["BoomboxGearThree"] = true
