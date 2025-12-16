@@ -74,7 +74,7 @@ function validate(name)
 	return name
 end
 local lib = loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Lib-18698"))()
-lib.makelib("The Chosen One EXTRAS (BY 2AREYOUMENTAL110)")
+lib.makelib("TCO Extras - Simplified (BY 2AREYOUMENTAL110)")
 local buildtab = lib.maketab("build")
 local bsaltab = lib.maketab("build save/load")
 lib.makelabel("if you see normalxsx / btc_normalxsx / normalxsx_windows1 / A_Normalxsx / A_NormalxsxWindows1 that is also me",buildtab)
