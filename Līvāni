@@ -437,7 +437,7 @@ local AutoTab = Window:CreateTab("Auto-Build", 0)
 local AutoMainSection = AutoTab:CreateSection("Main")
 
 local MirrlandAutoButton  = AutoTab:CreateButton({
-   Name = "Simplified Auto-Build",
+   Name = "Auto-Build - Simplified",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/autobuild'))()
 end,
