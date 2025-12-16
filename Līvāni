@@ -442,7 +442,7 @@ local MirrlandAutoButton  = AutoTab:CreateButton({
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/autobuild'))()
 end,
 })
-local AutoButton  = AutoTab:CreateButton({
+local BuildAuetoButton  = AutoTab:CreateButton({
    Name = "Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
