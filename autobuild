@@ -78,7 +78,10 @@ lib.makelib("The Chosen One EXTRAS (BY 2AREYOUMENTAL110)")
 local buildtab = lib.maketab("build")
 local bsaltab = lib.maketab("build save/load")
 lib.makelabel("if you see normalxsx / btc_normalxsx / normalxsx_windows1 / A_Normalxsx / A_NormalxsxWindows1 that is also me",buildtab)
-local dumfix = false
+lib.makelabel("\u{26A0}\u{FE0F} READ BELOW",buildtab)
+lib.makelabel("Roblox pushed a new update that makes you not able to send messages into System Chat (better than General chat for hiding messages)",buildtab)
+lib.makelabel("You could use this small fix that has a bunch of side effects for using the General chat (such as not being able to spam messages \u{1F621}) but sadly its probably all I can do.",buildtab)
+local dumfix = true
 lib.maketoggle("ugly fix",buildtab,function(bool)
 	dumfix = bool
 end,true)
@@ -607,6 +610,13 @@ end)
 function convrot(int)
 	return (int*360)/(math.pi*2)
 end
+lib.makebutton("Build D***",buildtab,function()
+	built = true
+	stopped = false
+	local stopbuild = false
+	if buildingexec then
+		buildingexec()
+	end
 	buildingexec = function()
 		stopbuild = true
 		buildingexec = nil
