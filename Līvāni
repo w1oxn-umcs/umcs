@@ -436,13 +436,13 @@ local GreenButton  = ClothingTab:CreateButton({
 local AutoTab = Window:CreateTab("Auto-Build", 0)
 local AutoMainSection = AutoTab:CreateSection("Main")
 
-local MirrlandAutoButton  = AutoTab:CreateButton({
-   Name = "Auto-Build - Simplified",
+local MirrlandemmvaleButton  = AutoTab:CreateButton({
+   Name = "Simplified Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/autobuild'))()
 end,
 })
-local BuildAuetoButton  = AutoTab:CreateButton({
+local BuildAutoButton  = AutoTab:CreateButton({
    Name = "Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
