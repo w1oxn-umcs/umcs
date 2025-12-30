@@ -397,6 +397,30 @@ local BorderButton  = ClothingTab:CreateButton({
     end,
 })
 
+local BorderButton  = ClothingTab:CreateButton({
+   Name = "Builder - B-TOOLS Regiment Uniform",
+   Callback = function()
+        local commands = {";r6 n", ";wear n 14570885448", ";wear n 90814444680229", ";wear n 137609136999431", ";wear n 113760738230765"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local BorderButton  = ClothingTab:CreateButton({
+   Name = "Builder - B-TOOLS Recruit Uniform",
+   Callback = function()
+        local commands = {";r6 n", ";wear n 112467963449856", ";wear n 134688857359051", ";wear n 109952913118023"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
 local CivilianSection = ClothingTab:CreateSection("Civilian")
 
 local LightBrownButton  = ClothingTab:CreateButton({
