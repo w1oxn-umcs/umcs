@@ -74,8 +74,6 @@ local TextChatService = game:GetService("TextChatService")
 
 local whitelist = {
     "ComradeAlexeiP",
-    "eyeyey6622",
-    "ComradeDenisV", -- ALT OF: eyeyey6622
     "OrangeTreeForLife",
     "Lilcoreymery",
     "Comminuted",
@@ -122,7 +120,6 @@ local blacklist = {
     "ComradeViktorS",
     "el_tricky12",
     "afdg544",
-    "BlockyMan287",
     "9_IILoLdudeidk",
     "NEEDmoreheatrightNOW",
     "aaroncs5",
@@ -130,13 +127,14 @@ local blacklist = {
     "Uljon11010",
     "mE_withthecool",
     "ClatonHere",
-    "classicaltacount",
     "poronhufb",
     "RawPeanutMan",
     "ElChanekeA",
     "chin_guun50",
     "DugDugBadugDug",
     "Flykaptein",
+    "eyeyey6622",
+    "ComradeDenisV", -- ALT OF: eyeyey6622
 }
 
 local Toggle = MainTab:CreateToggle({
