@@ -141,6 +141,21 @@ local blacklist = {
     "Flykaptein",
     "eyeyey6622",
     "ComradeDenisV", -- ALT OF: eyeyey6622
+    "Halloweenblader",
+    "duaraan",
+    "MagmaEye160",
+    "foxysocute1110",
+    "wolfbluedrop9",
+    "yesterbirthdaykarsh",
+    "prohbelya",
+    "UnspecifiedMann",
+    "raiderfakeprank",
+    "nutelaaa110",
+    "Pl4ntfire",
+    "Me_withthecool67",
+    "me_meymeyme",
+    "Monkoro117",
+    "me_meymeyme",
 }
 
 local Toggle = MainTab:CreateToggle({
