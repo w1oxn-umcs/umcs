@@ -199,7 +199,7 @@ Players.PlayerAdded:Connect(function(player)
         greeting = "⚠️ Blacklisted user " .. fullName .. " has joined. ⚠️"
 
     elseif isPremier then
-        greeting = "Greetings, Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
+        greeting = "Greetings, Our Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
 
     elseif isVIP then
         greeting = "Greetings, Мирском Member " .. fullName .. "."
