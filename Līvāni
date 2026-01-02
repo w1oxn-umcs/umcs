@@ -72,6 +72,13 @@ local MainSection = MainTab:CreateSection("Main")
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 
+local BLACKLIST_GROUPS = {
+    896524280, -- Unseen Solidarity
+    598113321, -- Democratic Republic of Donvic
+    502909114, -- DRC - Great air force of Donvic.
+    1068015203, -- DRC - Sword fighting regiment of Donvic
+}
+
 local premier = {
     "ComradeAlexeiP",
 }
@@ -176,6 +183,15 @@ local function shortenName(name)
     end
 end
 
+local function isInBlacklistedGroup(player)
+    for _, groupId in ipairs(BLACKLIST_GROUPS) do
+        if player:IsInGroup(groupId) then
+            return true
+        end
+    end
+    return false
+end
+
 Players.PlayerAdded:Connect(function(player)
     if not _G.SayMessageActive then return end
 
@@ -194,7 +210,7 @@ Players.PlayerAdded:Connect(function(player)
         end
     end
 
-    for _, name in ipairs(premierlist or {}) do
+    for _, name in ipairs(premier) do
         if fullName == name then
             isPremier = true
             break
@@ -206,6 +222,10 @@ Players.PlayerAdded:Connect(function(player)
             isBlocked = true
             break
         end
+    end
+
+    if isInBlacklistedGroup(player) then
+        isBlocked = true
     end
 
     if isBlocked then
