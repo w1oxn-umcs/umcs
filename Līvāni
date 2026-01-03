@@ -256,7 +256,7 @@ local DayNightToggle = MainTab:CreateToggle({
         if Value then
             _G.DayNightActive = true
             task.spawn(function()
-                local hour = 6 -- start at 6 so rules trigger immediately
+                local hour = 6
                 while _G.DayNightActive do
                     game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(";hour "..hour)
 
@@ -380,7 +380,7 @@ local ClothingSection = ClothingTab:CreateSection("Мирском")
 local MirskomButton  = ClothingTab:CreateButton({
    Name = "Мирском Uniform",
    Callback = function()
-        local commands = {";r6 n", ";wear n 137840120135002", ";wear n 104350730942409", ";wear n 95155756634738", ";wear n 113760738230765"}
+        local commands = {";wear n 137840120135002", ";wear n 104350730942409", ";wear n 95155756634738", ";wear n 113760738230765"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -394,7 +394,7 @@ local ArmySection = ClothingTab:CreateSection("Services")
 local ArmyButton  = ClothingTab:CreateButton({
    Name = "Military - People's Army (Cap)",
    Callback = function()
-        local commands = {";r6 n", ";wear n 106673971448303", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
+        local commands = {";wear n 106673971448303", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -406,7 +406,7 @@ local ArmyButton  = ClothingTab:CreateButton({
 local ArmyButton  = ClothingTab:CreateButton({
    Name = "Military - People's Army (Ushanka)",
    Callback = function()
-        local commands = {";r6 n", ";wear n 133329667039509", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
+        local commands = {";wear n 133329667039509", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -418,7 +418,7 @@ local ArmyButton  = ClothingTab:CreateButton({
 local WinterButton  = ClothingTab:CreateButton({
    Name = "Military - Winter Uniform",
    Callback = function()
-        local commands = {";r6 n", ";wear n 133329667039509", ";wear n 134047452769966", ";wear n 86498603304545", ";wear n 109952913118023"}
+        local commands = {";wear n 133329667039509", ";wear n 134047452769966", ";wear n 86498603304545", ";wear n 109952913118023"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -430,7 +430,7 @@ local WinterButton  = ClothingTab:CreateButton({
 local SailorButton  = ClothingTab:CreateButton({
    Name = "Military - Sailor",
    Callback = function()
-        local commands = {";r6 n", ";wear n 57134170", ";wear n 76771251936005", ";wear n 106761591124278", ";wear n 109952913118023"}
+        local commands = {";wear n 57134170", ";wear n 76771251936005", ";wear n 106761591124278", ";wear n 109952913118023"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -442,7 +442,7 @@ local SailorButton  = ClothingTab:CreateButton({
 local BorderButton  = ClothingTab:CreateButton({
    Name = "Military - Border Guard Uniform",
    Callback = function()
-        local commands = {";r6 n", ";wear n 97787988455285", ";wear n 85100278117650", ";wear n 107159464858349", ";wear n 113760738230765"}
+        local commands = {";wear n 97787988455285", ";wear n 85100278117650", ";wear n 107159464858349", ";wear n 113760738230765"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -454,7 +454,7 @@ local BorderButton  = ClothingTab:CreateButton({
 local BorderButton  = ClothingTab:CreateButton({
    Name = "Builder - B-TOOLS Regiment Uniform",
    Callback = function()
-        local commands = {";r6 n", ";wear n 14570885448", ";wear n 90814444680229", ";wear n 137609136999431", ";wear n 113760738230765"}
+        local commands = {";wear n 14570885448", ";wear n 90814444680229", ";wear n 137609136999431", ";wear n 113760738230765"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -466,7 +466,7 @@ local BorderButton  = ClothingTab:CreateButton({
 local BorderButton  = ClothingTab:CreateButton({
    Name = "Builder - B-TOOLS Recruit Uniform",
    Callback = function()
-        local commands = {";r6 n", ";wear n 112467963449856", ";wear n 134688857359051", ";wear n 109952913118023"}
+        local commands = {";wear n 112467963449856", ";wear n 134688857359051", ";wear n 109952913118023"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -480,7 +480,7 @@ local CivilianSection = ClothingTab:CreateSection("Civilian")
 local LightBrownButton  = ClothingTab:CreateButton({
    Name = "Civilian - Light Brown",
    Callback = function()
-        local commands = {";r6 n", ";wear n 13017420192", ";wear n 13017423552"}
+        local commands = {";wear n 13017420192", ";wear n 13017423552"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -492,7 +492,7 @@ local LightBrownButton  = ClothingTab:CreateButton({
 local BrownButton  = ClothingTab:CreateButton({
    Name = "Civilian - Brown",
    Callback = function()
-        local commands = {";r6 n", ";wear n 289307853", ";wear n 289307915"}
+        local commands = {";wear n 289307853", ";wear n 289307915"}
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
             task.wait(0.5)
@@ -503,7 +503,7 @@ local BrownButton  = ClothingTab:CreateButton({
 local GreenButton  = ClothingTab:CreateButton({
    Name = "Civilian - Green",
    Callback = function()
-        local commands = {";r6 n", ";wear n 942204384", ";wear n 942204194"}
+        local commands = {";wear n 942204384", ";wear n 942204194"}
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
             task.wait(0.5)
@@ -515,7 +515,7 @@ local AutoTab = Window:CreateTab("Auto-Build", 0)
 local AutoMainSection = AutoTab:CreateSection("Main")
 
 local MirrlandemmvaleButton  = AutoTab:CreateButton({
-   Name = "(хуйня) Simplified Auto-Build",
+   Name = "BROKEN - Simplified Auto-Build",
    Callback = function()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/autobuild'))()
 end,
