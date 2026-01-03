@@ -394,7 +394,7 @@ local ArmySection = ClothingTab:CreateSection("Services")
 local ArmyButton  = ClothingTab:CreateButton({
    Name = "Military - People's Army (Cap)",
    Callback = function()
-        local commands = {";r6 n", "/w ComradeAlexeiP ;wear n 106673971448303", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
+        local commands = {";r6 n", ";wear n 106673971448303", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
@@ -480,7 +480,7 @@ local CivilianSection = ClothingTab:CreateSection("Civilian")
 local LightBrownButton  = ClothingTab:CreateButton({
    Name = "Civilian - Light Brown",
    Callback = function()
-        local commands = {";r6 n", ";wear n 13017420192", "/w ComradeAlexeiP ;wear n 13017423552"}
+        local commands = {";r6 n", ";wear n 13017420192", ";wear n 13017423552"}
 
         for _, cmd in ipairs(commands) do
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
