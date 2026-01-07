@@ -79,6 +79,14 @@ local BLACKLIST_GROUPS = {
     1068015203, -- DRC - Sword fighting regiment of Donvic
 }
 
+local FRIENDLY_GROUPS = {
+    35338076, -- Union of Mirrland Communist States
+    35421829, -- ComradeAlexeiP
+    35788275, -- Democratic People's Republic of Korea
+    35816812, -- Korean People's Army
+    35348947, -- Builders of The Chosen One
+}
+
 local premier = {
     "ComradeAlexeiP",
 }
@@ -176,17 +184,17 @@ local Toggle = MainTab:CreateToggle({
     end,
 })
 
-local function shortenName(name)
-    local underscorePos = string.find(name, "_")
-    if underscorePos then
-        return string.sub(name, 1, underscorePos - 1)
-    else
-        return name
-    end
-end
-
 local function isInBlacklistedGroup(player)
     for _, groupId in ipairs(BLACKLIST_GROUPS) do
+        if player:IsInGroup(groupId) then
+            return true
+        end
+    end
+    return false
+end
+
+local function isInFriendlyGroup(player)
+    for _, groupId in ipairs(FRIENDLY_GROUPS) do
         if player:IsInGroup(groupId) then
             return true
         end
@@ -199,11 +207,11 @@ Players.PlayerAdded:Connect(function(player)
 
     local greeting
     local fullName = player.Name
-    local shortName = shortenName(fullName)
 
     local isVIP = false
     local isBlocked = false
     local isPremier = false
+    local isFriendly = false
 
     for _, name in ipairs(whitelist) do
         if fullName == name then
@@ -230,19 +238,24 @@ Players.PlayerAdded:Connect(function(player)
         isBlocked = true
     end
 
+    if isInFriendlyGroup(player) and not isBlocked then
+        isFriendly = true
+    end
+
     if isBlocked then
-        TextChatService.TextChannels.RBXGeneral:SendAsync(";mute " .. shortName .. ".")
-        TextChatService.TextChannels.RBXGeneral:SendAsync(";noclip " .. shortName .. ".")
         greeting = "⚠️ Blacklisted user " .. fullName .. " has joined. ⚠️"
 
     elseif isPremier then
-        greeting = "Greetings, Our Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
+        greeting = "Welcome, Our Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
 
     elseif isVIP then
         greeting = "Greetings, Мирском Member " .. fullName .. "."
 
+    elseif isFriendly then
+        greeting = "Salutations, Comrade " .. fullName .. "."
+
     else
-        greeting = "Hello, " .. fullName .. "."
+        greeting = "Hello , " .. fullName .. "."
     end
 
     task.wait(2.5)
