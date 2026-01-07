@@ -330,6 +330,18 @@ local BorderButton  = ClothingTab:CreateButton({
     end,
 })
 
+local TrafficButton  = ClothingTab:CreateButton({
+   Name = "TEMPORARY - Traffic Security",
+   Callback = function()
+        local commands = {";wear n 4018462693", ";wear n 7232344628", ";wear n 7232343201"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
 local CivilianSection = ClothingTab:CreateSection("Civilian")
 
 local LightBrownButton  = ClothingTab:CreateButton({
