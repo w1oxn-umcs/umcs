@@ -1,0 +1,106 @@
+return {
+    BLACKLIST_GROUPS = {
+        896524280, -- Unseen Solidarity
+        598113321, -- Democratic Republic of Donvic
+        502909114, -- DRC - Great air force of Donvic.
+        1068015203, -- DRC - Sword fighting regiment of Donvic
+    },
+
+    FRIENDLY_GROUPS = {
+        35338076, -- Union of Mirrland Communist States
+        35421829, -- ComradeAlexeiP
+        35788275, -- Democratic People's Republic of Korea
+        35816812, -- Korean People's Army
+        35348947, -- Builders of The Chosen One
+    },
+
+    premier = {
+        "ComradeAlexeiP",
+    },
+
+    whitelist = {
+        "OrangeTreeForLife",
+        "Lilcoreymery",
+        "Comminuted",
+        "SWATKoi867",
+        "jackf240",
+        "Moneyiscoolli",
+        "thesmithender",
+        "John_Town03",
+        "piggyfan727227",
+        "AmbassadorNakazaYuki",
+    },
+
+    blacklist = {
+        "RedrawnRuben",
+        "Dustblaize",
+        "XTRAr21",
+        "Account9198",
+        "f_oxpiratefnar35",
+        "MoniqueNatalie",
+        "sjtxm",
+        "coolescola_3",
+        "King_Cat1116",
+        "Meme_lord123400",
+        "FireBoyVox",
+        "Panter24418",
+        "itzz_rblxmaya",
+        "Ohiopro_doorsfan",
+        "bonnie57797",
+        "ALEXSTRANDDO",
+        "Thelando100",
+        "A_bear55555",
+        "isRAELLUIZUTUF7UH",
+        "KamustaJakeM3",
+        "Proton_RA",
+        "Isabellagato11653",
+        "wanna_beChosen",
+        "vitaspitas12345",
+        "jzznxd",
+        "d1g1tal_top1",
+        "Bing_MicrosoftWindow",
+        "ssssssdrhgi00",
+        "dann09123",
+        "Survenity",
+        "93ujs0", -- advertising non-mirrland groups
+        "Mahfuzumj4",
+        "ComradeViktorS",
+        "afdg544",
+        "9_IILoLdudeidk",
+        "NEEDmoreheatrightNOW",
+        "aaroncs5",
+        "ilikepoland1215",
+        "Uljon11010",
+        "mE_withthecool",
+        "ClatonHere",
+        "poronhufb",
+        "RawPeanutMan",
+        "ElChanekeA",
+        "chin_guun50",
+        "DugDugBadugDug",
+        "Flykaptein",
+        "eeeeeeol3l33ll3l3l3", -- feels necessary
+        "eyeyey6622", -- ALT OF: eeeeeeol3l33ll3l3l3
+        "ComradeDenisV", -- ALT OF: eeeeeeol3l33ll3l3l3
+        "Halloweenblader",
+        "duaraan",
+        "MagmaEye160",
+        "foxysocute1110",
+        "wolfbluedrop9",
+        "yesterbirthdaykarsh",
+        "prohbelya", -- unseen
+        "UnspecifiedMann",
+        "raiderfakeprank",
+        "nutelaaa110",
+        "Pl4ntfire",
+        "Me_withthecool67",
+        "me_meymeyme",
+        "Monkoro117",
+        "me_meymeyme",
+        "discriminantion",
+        "Zombiegirlmoo",
+        "ilovebloxfruitsracee", -- donating against me
+        "Jakub121312",  -- called mirrland smelly
+        "ilovevxltrs",  -- crashed mirrland server
+    },
+}
