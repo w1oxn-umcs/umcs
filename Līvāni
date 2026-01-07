@@ -162,7 +162,7 @@ Players.PlayerAdded:Connect(function(player)
         greeting = "Salutations, Comrade " .. fullName .. "."
 
     else
-        greeting = "Hello , " .. fullName .. "."
+        greeting = "Hello, " .. fullName .. "."
     end
 
     task.wait(2.5)
