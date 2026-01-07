@@ -126,7 +126,6 @@ local blacklist = {
     "isRAELLUIZUTUF7UH",
     "KamustaJakeM3",
     "Proton_RA",
-    "post_tropical",
     "Isabellagato11653",
     "wanna_beChosen",
     "vitaspitas12345",
@@ -136,10 +135,9 @@ local blacklist = {
     "ssssssdrhgi00",
     "dann09123",
     "Survenity",
-    "93ujs0",
+    "93ujs0", -- advertising non-mirrland groups
     "Mahfuzumj4",
     "ComradeViktorS",
-    "el_tricky12",
     "afdg544",
     "9_IILoLdudeidk",
     "NEEDmoreheatrightNOW",
@@ -154,15 +152,16 @@ local blacklist = {
     "chin_guun50",
     "DugDugBadugDug",
     "Flykaptein",
-    "eyeyey6622",
-    "ComradeDenisV", -- ALT OF: eyeyey6622
+    "eeeeeeol3l33ll3l3l3", -- feels necessary
+    "eyeyey6622", -- ALT OF: eeeeeeol3l33ll3l3l3
+    "ComradeDenisV", -- ALT OF: eeeeeeol3l33ll3l3l3
     "Halloweenblader",
     "duaraan",
     "MagmaEye160",
     "foxysocute1110",
     "wolfbluedrop9",
     "yesterbirthdaykarsh",
-    "prohbelya",
+    "prohbelya", -- unseen
     "UnspecifiedMann",
     "raiderfakeprank",
     "nutelaaa110",
@@ -173,6 +172,8 @@ local blacklist = {
     "me_meymeyme",
     "discriminantion",
     "Zombiegirlmoo",
+    "ilovebloxfruitsracee", -- donating against me
+    "Jakub121312",  -- called mirrland smelly
 }
 
 local Toggle = MainTab:CreateToggle({
@@ -246,7 +247,7 @@ Players.PlayerAdded:Connect(function(player)
         greeting = "⚠️ Blacklisted user " .. fullName .. " has joined. ⚠️"
 
     elseif isPremier then
-        greeting = "Welcome, Our Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
+        greeting = "Greetings, Our Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
 
     elseif isVIP then
         greeting = "Greetings, Мирском Member " .. fullName .. "."
