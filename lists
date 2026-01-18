@@ -29,6 +29,10 @@ return {
         "John_Town03",
         "piggyfan727227",
         "AmbassadorNakazaYuki",
+        "eeeeeeol3l33ll3l3l3", -- ig kinda
+        "ComradeDenisV", -- ALT OF: eeeeeeol3l33ll3l3l3
+        "eyeyey6622", -- ALT OF: eeeeeeol3l33ll3l3l3
+
     },
 
     blacklist = {
@@ -79,9 +83,6 @@ return {
         "chin_guun50",
         "DugDugBadugDug",
         "Flykaptein",
-        "eeeeeeol3l33ll3l3l3", -- feels necessary
-        "eyeyey6622", -- ALT OF: eeeeeeol3l33ll3l3l3
-        "ComradeDenisV", -- ALT OF: eeeeeeol3l33ll3l3l3
         "Halloweenblader",
         "duaraan",
         "MagmaEye160",
