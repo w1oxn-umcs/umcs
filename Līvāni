@@ -1,1 +1,2 @@
+-- you can the lists here: https://github.com/w1oxn-umcs/umcs/blob/main/lists
 loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/041ba67d6a705627aca15394a0606cc34d06c2d5e8eb09f2be2cb65aea224643/download"))()
