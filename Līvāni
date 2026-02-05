@@ -1,2 +1,377 @@
 -- Here you can view the lists: https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/lists
-loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/041ba67d6a705627aca15394a0606cc34d06c2d5e8eb09f2be2cb65aea224643/download"))()
+-- loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/041ba67d6a705627aca15394a0606cc34d06c2d5e8eb09f2be2cb65aea224643/download"))()
+--[[
+
+Dear TomazDev,
+I kindly ask that you please do not ban me. This script is strictly for personal use and is not intended to harm, disrupt, or negatively impact your game in any way.
+I fully respect the work you put into the game and I am not attempting to exploit, damage, or interfere with its normal operation. My usage is minimal and does not cause any significant issues.
+
+If there are any concerns, I am open to adjusting or removing anything necessary.
+Thank you for your understanding.
+
+        		       Līvāni
+    	Following our Premier Petrov's footsteps
+
+                   Mirrland Side
+      	  ComradeAlexeiP | Designing + Programming
+      	  ChatGPT (lol)  | Programming
+
+                   Rayfield Side
+                  shlex  | Designing + Programming
+                  iRay   | Programming
+                  Max    | Programming
+                  Damian | Programming
+
+]]
+
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+	Name = "Līvāni",
+	Icon = 133146869933827,
+	LoadingTitle = "Līvāni",
+	LoadingSubtitle = "Following our Premier's footsteps",
+	ShowText = "Līvāni",
+	Theme = "Default",
+
+	ToggleUIKeybind = "K",
+
+	DisableRayfieldPrompts = false,
+	DisableBuildWarnings = false,
+
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = nil,
+		FileName = "Big Hub"
+	},
+
+	Discord = {
+		Enabled = true,
+		Invite = "mFCgHTK7wf",
+		RememberJoins = true
+	},
+
+	KeySystem = true,
+	KeySettings = {
+		Title = "Līvāni",
+		Subtitle = "Key System",
+		Note = "Ask @comradealexeip on Discord for the key",
+		FileName = "Key",
+		SaveKey = false,
+		GrabKeyFromSite = false,
+		Key = {"test"}
+	}
+})
+
+local FirstTab = Window:CreateTab("Message to TomazDev", 0)
+local FirstSection = FirstTab:CreateSection(" ")
+local FirstParagraph = FirstTab:CreateParagraph({Title = "Dear TomazDev,", Content = "I kindly ask that you please do not ban me. This script is strictly for personal use and is not intended to harm, disrupt, or negatively impact your game in any way.\nI fully respect the work you put into the game and I am not attempting to exploit, damage, or interfere with its normal operation. My usage is minimal and does not cause any significant issues.\n\nIf there are any concerns, I am open to adjusting or removing anything necessary.\nThank you for your understanding."})
+
+local MainTab = Window:CreateTab("Main", 0)
+local MainSection = MainTab:CreateSection("Main")
+
+local Players = game:GetService("Players")
+local TextChatService = game:GetService("TextChatService")
+
+local Lists = loadstring(game:HttpGet("https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/lists"))()
+
+local BLACKLIST_GROUPS = Lists.BLACKLIST_GROUPS
+local FRIENDLY_GROUPS = Lists.FRIENDLY_GROUPS
+local premier = Lists.premier
+local whitelist = Lists.whitelist
+local blacklist = Lists.blacklist
+
+local Toggle = MainTab:CreateToggle({
+    Name = "Welcome Message",
+    CurrentValue = false,
+    Flag = "SayMessageToggle",
+    Callback = function(Value)
+        _G.SayMessageActive = Value
+    end,
+})
+
+local function isInBlacklistedGroup(player)
+    for _, groupId in ipairs(BLACKLIST_GROUPS) do
+        if player:IsInGroup(groupId) then
+            return true
+        end
+    end
+    return false
+end
+
+local function isInFriendlyGroup(player)
+    for _, groupId in ipairs(FRIENDLY_GROUPS) do
+        if player:IsInGroup(groupId) then
+            return true
+        end
+    end
+    return false
+end
+
+Players.PlayerAdded:Connect(function(player)
+    if not _G.SayMessageActive then return end
+
+    local greeting
+    local fullName = player.Name
+
+    local isVIP = false
+    local isBlocked = false
+    local isPremier = false
+    local isFriendly = false
+
+    for _, name in ipairs(whitelist) do
+        if fullName == name then
+            isVIP = true
+            break
+        end
+    end
+
+    for _, name in ipairs(premier) do
+        if fullName == name then
+            isPremier = true
+            break
+        end
+    end
+
+    for _, name in ipairs(blacklist) do
+        if fullName == name then
+            isBlocked = true
+            break
+        end
+    end
+
+    if isInBlacklistedGroup(player) then
+        isBlocked = true
+    end
+
+    if isInFriendlyGroup(player) and not isBlocked then
+        isFriendly = true
+    end
+
+    if isBlocked then
+        greeting = "⚠️ Blacklisted user " .. fullName .. " has joined. ⚠️"
+
+    elseif isPremier then
+        greeting = "Greetings, Our Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
+
+    elseif isVIP then
+        greeting = "Greetings, Мирском Member " .. fullName .. "."
+
+    elseif isFriendly then
+        greeting = "Salutations, Comrade " .. fullName .. "."
+
+    else
+        greeting = "Hello, " .. fullName .. "."
+    end
+
+    task.wait(2.5)
+    TextChatService.TextChannels.RBXGeneral:SendAsync(greeting)
+end)
+
+local DayNightToggle = MainTab:CreateToggle({
+    Name = "Day/Night Cycle",
+    CurrentValue = false,
+    Flag = "DayNight",
+    Callback = function(Value)
+        if Value then
+            _G.DayNightActive = true
+            task.spawn(function()
+                local hour = 6
+                while _G.DayNightActive do
+                    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(";hour "..hour)
+
+                    local waitTime
+                    if hour == 6 or hour == 18 then
+                        waitTime = 30
+                    elseif hour >= 7 and hour <= 17 then
+                        waitTime = 60
+                    else
+                        waitTime = 60
+                    end
+
+                    task.wait(waitTime)
+
+                    hour = (hour + 1) % 24
+                end
+            end)
+        else
+            _G.DayNightActive = false
+        end
+    end,
+})
+
+local Input = MainTab:CreateInput({
+   Name = "Announcement",
+   CurrentValue = "",
+   PlaceholderText = "Write announcement here",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+       local fancyIntro = "📢ANNOUNCEMENT📢: "
+       for i = 1, 3 do
+           TextChatService.TextChannels.RBXGeneral:SendAsync(fancyIntro .. Text)
+           task.wait(0.5)
+       end
+   end,
+})
+
+local ClothingTab = Window:CreateTab("Clothing", 0)
+local ClothingMainSection = ClothingTab:CreateSection("Main")
+
+local Standard = ClothingTab:CreateButton({
+   Name = "Set Speed",
+   Callback = function()
+        local commands = {";speed a 10"}
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local ClothingSection = ClothingTab:CreateSection("Мирском")
+
+local MirskomButton  = ClothingTab:CreateButton({
+   Name = "Мирском Uniform",
+   Callback = function()
+        local commands = {";wear n 137840120135002", ";wear n 104350730942409", ";wear n 95155756634738", ";wear n 113760738230765"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local ArmySection = ClothingTab:CreateSection("Services")
+
+local ArmyButton  = ClothingTab:CreateButton({
+   Name = "Military - People's Army (Cap)",
+   Callback = function()
+        local commands = {";wear n 106673971448303", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local ArmyButton  = ClothingTab:CreateButton({
+   Name = "Military - People's Army (Ushanka)",
+   Callback = function()
+        local commands = {";wear n 133329667039509", ";wear n 76196788199904", ";wear n 113055068133533", ";wear n 109952913118023"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local WinterButton  = ClothingTab:CreateButton({
+   Name = "Military - Winter Uniform",
+   Callback = function()
+        local commands = {";wear n 133329667039509", ";wear n 134047452769966", ";wear n 86498603304545", ";wear n 109952913118023"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local SailorButton  = ClothingTab:CreateButton({
+   Name = "Military - Sailor",
+   Callback = function()
+        local commands = {";wear n 57134170", ";wear n 76771251936005", ";wear n 106761591124278", ";wear n 109952913118023"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local BorderButton  = ClothingTab:CreateButton({
+   Name = "Military - Border Guard Uniform",
+   Callback = function()
+        local commands = {";wear n 97787988455285", ";wear n 85100278117650", ";wear n 107159464858349", ";wear n 113760738230765"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local BorderButton  = ClothingTab:CreateButton({
+   Name = "Builder - B-TOOLS Regiment Uniform",
+   Callback = function()
+        local commands = {";wear n 14570885448", ";wear n 90814444680229", ";wear n 137609136999431", ";wear n 113760738230765"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local BorderButton  = ClothingTab:CreateButton({
+   Name = "Builder - B-TOOLS Recruit Uniform",
+   Callback = function()
+        local commands = {";wear n 112467963449856", ";wear n 134688857359051", ";wear n 109952913118023"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local CivilianSection = ClothingTab:CreateSection("Civilian")
+
+local LightBrownButton  = ClothingTab:CreateButton({
+   Name = "Civilian - Light Brown",
+   Callback = function()
+        local commands = {";wear n 13017420192", ";wear n 13017423552"}
+
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local BrownButton  = ClothingTab:CreateButton({
+   Name = "Civilian - Brown",
+   Callback = function()
+        local commands = {";wear n 289307853", ";wear n 289307915"}
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local GreenButton  = ClothingTab:CreateButton({
+   Name = "Civilian - Green",
+   Callback = function()
+        local commands = {";wear n 942204384", ";wear n 942204194"}
+        for _, cmd in ipairs(commands) do
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
+            task.wait(0.5)
+        end
+    end,
+})
+
+local AutoTab = Window:CreateTab("Auto-Build", 0)
+local AutoMainSection = AutoTab:CreateSection("Main")
+
+local BuildAutoButton  = AutoTab:CreateButton({
+   Name = "Auto-Build",
+   Callback = function()
+		loadstring(game:HttpGet('https://rawscripts.net/raw/The-Chosen-One-Extra-Stuff-18127'))()
+end,
+})
