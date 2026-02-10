@@ -92,18 +92,11 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     end,
 })
 
--- just repeat everyones messages
-task.spawn(function()
-    while true do
-        if _G.RepeatMessagesActive then
-            local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
-            if RBXGeneral then
-                for _, msg in ipairs(RBXGeneral:GetChildren()) do
-                    task.wait(0.5)
-                    RBXGeneral:SendAsync(msg.Name) -- literally just paste the message name/text
-                end
-            end
-        end
-        task.wait(1)
-    end
-end)
+local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+if RBXGeneral then
+    RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
+        if not _G.RepeatMessagesActive then return end
+        task.wait(0.5)
+        RBXGeneral:SendAsync(message.Text) -- <-- THIS is the actual message text
+    end)
+end
