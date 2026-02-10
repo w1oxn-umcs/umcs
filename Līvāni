@@ -92,13 +92,17 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     end,
 })
 
--- repeat all messages in RBXGeneral
-TextChatService.TextChannels.RBXGeneral.MessagePosted:Connect(function(message)
+-- listen to all incoming messages
+TextChatService.OnIncomingMessage = TextChatService.OnIncomingMessage or Instance.new("BindableEvent")
+
+TextChatService.OnIncomingMessage.Event:Connect(function(message)
     if not _G.RepeatMessagesActive then return end
 
-    -- send the exact message as-is
-    task.spawn(function()
-        task.wait(0.5) -- same small delay as your other commands
-        TextChatService.TextChannels.RBXGeneral:SendAsync(message)
-    end)
+    -- only repeat messages from players, not system messages
+    if message.Text and message.Text ~= "" then
+        task.spawn(function()
+            task.wait(0.5)
+            TextChatService.TextChannels.RBXGeneral:SendAsync(message.Text)
+        end)
+    end
 end)
