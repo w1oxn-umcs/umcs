@@ -91,6 +91,7 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
         -- function to repeat messages
         local function repeatMessage(plr, msg)
             if plr == game.Players.LocalPlayer then return end -- don't repeat yourself
+            if string.sub(msg, 1, 1) ~= "." then return end -- only repeat if starts with .
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(msg)
         end
 
@@ -114,3 +115,4 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
 
     end,
 })
+
