@@ -119,10 +119,10 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
                     task.wait(0.2)
                 end
                 -- send the message
-                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
+                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No enlighten in inventory")
             else
                 -- only send warning instead of message
-                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No enlighten in inventory")
+                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
             end
         end
 
