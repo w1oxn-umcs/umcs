@@ -91,25 +91,31 @@ local RepeatToggle = MainTab:CreateToggle({
     end,
 })
 
--- function to hook up a player's messages
-local function hookPlayer(player)
-    player.Chatted:Connect(function(msg)
+local RepeatToggle = MainTab:CreateToggle({
+    Name = "Repeat Whitelisted Commands",
+    CurrentValue = false,
+    Flag = "RepeatWhitelistToggle",
+    Callback = function(Value)
+        _G.RepeatWhitelistActive = Value
+    end,
+})
+
+local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+if RBXGeneral then
+    RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
         if not _G.RepeatWhitelistActive then return end
 
+        local sender = message.TextSource
+        local content = message.Text
+
+        -- repeat if sender is whitelisted
         for _, name in ipairs(whitelist) do
-            if player.Name == name then
-                task.wait(0.5) -- tiny delay to avoid spam
-                TextChatService.TextChannels.RBXGeneral:SendAsync(msg)
+            if sender.Name == name then
+                task.wait(0.5) -- tiny delay like your other toggles
+                RBXGeneral:SendAsync(content)
                 break
             end
         end
     end)
 end
 
--- hook everyone already in game
-for _, player in ipairs(Players:GetPlayers()) do
-    hookPlayer(player)
-end
-
--- hook players who join later
-Players.PlayerAdded:Connect(hookPlayer)
