@@ -92,12 +92,11 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     end,
 })
 
--- scan messages from RBXGeneral channel
 local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
 if RBXGeneral then
-    RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
+    RBXGeneral.MessagePosted:Connect(function(message)
         if not _G.RepeatMessagesActive then return end
         task.wait(0.5)
-        RBXGeneral:SendAsync(message.Text)
+        RBXGeneral:SendAsync(message)
     end)
 end
