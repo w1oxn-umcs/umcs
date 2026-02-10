@@ -87,34 +87,31 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     CurrentValue = false,
     Flag = "RepeatMessages",
     Callback = function(Value)
-
         local localplr = game.Players.LocalPlayer
 
-        local function repeatMessage(plr, msg)
-            if plr == localplr then return end -- don't repeat yourself
+        -- function to handle messages
+        local function repeatMessage(player, msg)
+            if player == localplr then return end -- don't repeat yourself
             if string.sub(msg,1,1) ~= "." then return end -- only repeat messages starting with .
 
             local toSend = string.sub(msg,2) -- remove the dot
 
-            -- find arkenstone in backpack or character
+            -- find arkenstone
             local arkenstone = localplr.Backpack:FindFirstChild("The Arkenstone") 
                               or localplr.Character:FindFirstChild("The Arkenstone")
 
             if arkenstone then
-                -- equip if in backpack
                 if arkenstone.Parent == localplr.Backpack then
                     arkenstone.Parent = localplr.Character
                     task.wait(0.2)
                 end
-                -- send the message
                 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
             else
-                -- no arkenstone anywhere
                 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No enlighten in inventory")
             end
         end
 
-        -- connect all current players
+        -- connect all current and future players ONCE
         for _, player in pairs(game:GetService("Players"):GetPlayers()) do
             player.Chatted:Connect(function(msg)
                 if Value then
@@ -123,7 +120,6 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
             end)
         end
 
-        -- connect future players
         game:GetService("Players").PlayerAdded:Connect(function(player)
             player.Chatted:Connect(function(msg)
                 if Value then
@@ -131,6 +127,5 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
                 end
             end)
         end)
-
     end,
 })
