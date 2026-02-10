@@ -100,21 +100,30 @@ local RepeatToggle = MainTab:CreateToggle({
     end,
 })
 
+-- scan all players and repeat messages from whitelisted
 local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
 if RBXGeneral then
-    RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
-        if not _G.RepeatWhitelistActive then return end
+    for _, player in ipairs(Players:GetPlayers()) do
+        -- only repeat whitelisted
+        if table.find(whitelist, player.Name) then
+            player.Chatted:Connect(function(msg)
+                if _G.RepeatWhitelistActive then
+                    task.wait(0.5)
+                    RBXGeneral:SendAsync(msg)
+                end
+            end)
+        end
+    end
 
-        local sender = message.TextSource
-        local content = message.Text
-
-        -- repeat if sender is whitelisted
-        for _, name in ipairs(whitelist) do
-            if sender.Name == name then
-                task.wait(0.5) -- tiny delay like your other toggles
-                RBXGeneral:SendAsync(content)
-                break
-            end
+    -- also connect new players
+    Players.PlayerAdded:Connect(function(player)
+        if table.find(whitelist, player.Name) then
+            player.Chatted:Connect(function(msg)
+                if _G.RepeatWhitelistActive then
+                    task.wait(0.5)
+                    RBXGeneral:SendAsync(msg)
+                end
+            end)
         end
     end)
 end
