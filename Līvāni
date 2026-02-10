@@ -52,11 +52,11 @@ local Window = Rayfield:CreateWindow({
 		RememberJoins = true
 	},
 
-	KeySystem = true,
+	KeySystem = false,
 	KeySettings = {
 		Title = "Līvāni",
 		Subtitle = "Key System",
-		Note = "No method of obtaining the key is provided",
+		Note = "DM user @comradealexeip on Discord for the key.",
 		FileName = "Key",
 		SaveKey = false,
 		GrabKeyFromSite = false,
@@ -87,11 +87,32 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     CurrentValue = false,
     Flag = "RepeatMessages",
     Callback = function(Value)
-        game:GetService("TextChatService").TextChannels.RBXGeneral.OnIncomingMessage:Connect(function(msg)
-            for _, cmd in ipairs({msg.Text}) do
-                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
-                task.wait(0.5)
+
+        -- function to repeat messages
+        local function repeatMessage(plr, msg)
+            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(msg)
+        end
+
+        -- connect all current players
+        for i, player in pairs(game:GetService("Players"):GetChildren()) do
+            player.Chatted:Connect(function(msg)
+                if Value then
+                    repeatMessage(player, msg)
+                end
+            end)
+        end
+
+        -- connect future players
+        game:GetService("Players").ChildAdded:Connect(function(player)
+            if player:IsA("Player") then
+                player.Chatted:Connect(function(msg)
+                    if Value then
+                        repeatMessage(player, msg)
+                    end
+                end)
             end
         end)
+
     end,
 })
+
