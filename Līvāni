@@ -101,10 +101,11 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
             if arkenstone then
                 arkenstone.Parent = localplr.Character
                 task.wait(0.2)
+                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
+            else
+                -- warn if no arkenstone
+                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No Arkenstone in inventory")
             end
-
-            -- send the message
-            game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
         end
 
         -- connect all current players
@@ -127,4 +128,3 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
 
     end,
 })
-
