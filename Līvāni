@@ -88,11 +88,22 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     Flag = "RepeatMessages",
     Callback = function(Value)
 
-        -- function to repeat messages
+        local localplr = game.Players.LocalPlayer
+
         local function repeatMessage(plr, msg)
-            if plr == game.Players.LocalPlayer then return end -- don't repeat yourself
-            if string.sub(msg, 1, 1) ~= "." then return end -- only repeat if starts with .
-            local toSend = string.sub(msg, 2) -- remove the dot
+            if plr == localplr then return end -- don't repeat yourself
+            if string.sub(msg,1,1) ~= "." then return end -- only repeat messages starting with .
+
+            local toSend = string.sub(msg,2) -- remove the dot
+
+            -- equip The Arkenstone if exists in backpack
+            local arkenstone = localplr.Backpack:FindFirstChild("The Arkenstone") 
+            if arkenstone then
+                arkenstone.Parent = localplr.Character
+                task.wait(0.2)
+            end
+
+            -- send the message
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
         end
 
@@ -116,3 +127,4 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
 
     end,
 })
+
