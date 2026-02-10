@@ -93,12 +93,9 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
 })
 
 local TextChatService = game:GetService("TextChatService")
-local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
 
-if RBXGeneral then
-    RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
-        if not _G.RepeatMessagesActive then return end
-        -- message.Text contains the actual chat text
-        RBXGeneral:SendAsync(message.Text)
-    end)
-end
+TextChatService.TextChannels.RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
+    if not _G.RepeatMessagesActive then return end
+    task.wait(0.5)
+    TextChatService.TextChannels.RBXGeneral:SendAsync(message)
+end)
