@@ -82,49 +82,22 @@ local premier = Lists.premier
 local whitelist = Lists.whitelist
 local blacklist = Lists.blacklist
 
-local RepeatToggle = MainTab:CreateToggle({
-    Name = "Repeat Whitelisted Commands",
+
+local RepeatMessagesToggle = MainTab:CreateToggle({
+    Name = "Repeat Everyone's Messages",
     CurrentValue = false,
-    Flag = "RepeatWhitelistToggle",
+    Flag = "RepeatMessages",
     Callback = function(Value)
-        _G.RepeatWhitelistActive = Value
+        _G.RepeatMessagesActive = Value
     end,
 })
 
-local RepeatToggle = MainTab:CreateToggle({
-    Name = "Repeat Whitelisted Commands",
-    CurrentValue = false,
-    Flag = "RepeatWhitelistToggle",
-    Callback = function(Value)
-        _G.RepeatWhitelistActive = Value
-    end,
-})
-
--- scan all players and repeat messages from whitelisted
+-- scan messages from RBXGeneral channel
 local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
 if RBXGeneral then
-    for _, player in ipairs(Players:GetPlayers()) do
-        -- only repeat whitelisted
-        if table.find(whitelist, player.Name) then
-            player.Chatted:Connect(function(msg)
-                if _G.RepeatWhitelistActive then
-                    task.wait(0.5)
-                    RBXGeneral:SendAsync(msg)
-                end
-            end)
-        end
-    end
-
-    -- also connect new players
-    Players.PlayerAdded:Connect(function(player)
-        if table.find(whitelist, player.Name) then
-            player.Chatted:Connect(function(msg)
-                if _G.RepeatWhitelistActive then
-                    task.wait(0.5)
-                    RBXGeneral:SendAsync(msg)
-                end
-            end)
-        end
+    RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
+        if not _G.RepeatMessagesActive then return end
+        task.wait(0.5)
+        RBXGeneral:SendAsync(message.Text)
     end)
 end
-
