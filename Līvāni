@@ -102,4 +102,3 @@ if RBXGeneral then
         RBXGeneral:SendAsync(message.Text)
     end)
 end
-
