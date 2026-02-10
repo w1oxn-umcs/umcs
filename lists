@@ -19,6 +19,7 @@ return {
     },
 
     whitelist = {
+        "ComradeAlexeiP",
         "OrangeTreeForLife",
         "Lilcoreymery",
         "Comminuted",
@@ -27,8 +28,8 @@ return {
         "thesmithender",
         "piggyfan727227",
         "AmbassadorNakazaYuki", -- ALT OF: piggyfan727227
-        "eeeeeeol3l33ll3l3l3", -- ig kinda
-        "ComradeDenisV", -- ALT OF: eeeeeeol3l33ll3l3l3
+        "eeeeeeol3l33ll3l3l3",
+        "ComradeDenisV",
 
     },
 
