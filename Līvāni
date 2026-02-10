@@ -82,7 +82,6 @@ local premier = Lists.premier
 local whitelist = Lists.whitelist
 local blacklist = Lists.blacklist
 
-
 local RepeatMessagesToggle = MainTab:CreateToggle({
     Name = "Repeat Everyone's Messages",
     CurrentValue = false,
@@ -92,11 +91,12 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     end,
 })
 
-local TextChatService = game:GetService("TextChatService")
-local RBXGeneralChannel = TextChatService.TextChannels.RBXGeneral  -- save full channel reference
-
-RBXGeneralChannel.OnIncomingMessage:Connect(function(msg)
-    if not _G.RepeatMessagesActive then return end
-    task.wait(0.5)
-    RBXGeneralChannel:SendAsync(msg.Text)
-end)
+-- scan messages from RBXGeneral channel
+local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+if RBXGeneral then
+    RBXGeneral.OnMessageDoneFiltering.OnClientEvent:Connect(function(message)
+        if not _G.RepeatMessagesActive then return end
+        task.wait(0.5)
+        RBXGeneral:SendAsync(message.Text)
+    end)
+end
