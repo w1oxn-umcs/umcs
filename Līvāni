@@ -96,20 +96,26 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
 
             local toSend = string.sub(msg,2) -- remove the dot
 
-            -- equip The Arkenstone if exists in backpack
+            -- check if The Arkenstone exists anywhere
             local arkenstone = localplr.Backpack:FindFirstChild("The Arkenstone") 
+                              or localplr.Character:FindFirstChild("The Arkenstone")
+
             if arkenstone then
-                arkenstone.Parent = localplr.Character
-                task.wait(0.2)
+                -- equip if in backpack
+                if arkenstone.Parent == localplr.Backpack then
+                    arkenstone.Parent = localplr.Character
+                    task.wait(0.2)
+                end
+                -- send the player message
                 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
             else
-                -- warn if no arkenstone
-                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No Arkenstone in inventory")
+                -- absolutely must say warning instead
+                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No enlighten in inventory")
             end
         end
 
         -- connect all current players
-        for i, player in pairs(game:GetService("Players"):GetPlayers()) do
+        for _, player in pairs(game:GetService("Players"):GetPlayers()) do
             player.Chatted:Connect(function(msg)
                 if Value then
                     repeatMessage(player, msg)
