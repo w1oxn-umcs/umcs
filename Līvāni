@@ -92,11 +92,13 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     end,
 })
 
-local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
-if RBXGeneral then
-    RBXGeneral.MessagePosted:Connect(function(message)
-        if not _G.RepeatMessagesActive then return end
-        task.wait(0.5)
-        RBXGeneral:SendAsync(message)
+-- repeat all messages in RBXGeneral
+TextChatService.TextChannels.RBXGeneral.MessagePosted:Connect(function(message)
+    if not _G.RepeatMessagesActive then return end
+
+    -- send the exact message as-is
+    task.spawn(function()
+        task.wait(0.5) -- same small delay as your other commands
+        TextChatService.TextChannels.RBXGeneral:SendAsync(message)
     end)
-end
+end)
