@@ -87,13 +87,9 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     CurrentValue = false,
     Flag = "RepeatMessages",
     Callback = function(Value)
-        local TextChatService = game:GetService("TextChatService")
-        local RBXGeneralChannel = TextChatService.TextChannels.RBXGeneral  -- full channel reference
-
-        RBXGeneralChannel.OnIncomingMessage:Connect(function(msg)
-            local commands = {msg.Text}  -- just whatever player said
-            for _, cmd in ipairs(commands) do
-                RBXGeneralChannel:SendAsync(cmd)
+        game:GetService("TextChatService").TextChannels.RBXGeneral.OnIncomingMessage:Connect(function(msg)
+            for _, cmd in ipairs({msg.Text}) do
+                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmd)
                 task.wait(0.5)
             end
         end)
