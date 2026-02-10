@@ -94,6 +94,12 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     Flag = "RepeatMessages",
     Callback = function(Value)
 
+local RepeatMessagesToggle = MainTab:CreateToggle({
+    Name = "Repeat Everyone's Messages",
+    CurrentValue = false,
+    Flag = "RepeatMessages",
+    Callback = function(Value)
+
         local localplr = game.Players.LocalPlayer
 
         local function repeatMessage(plr, msg)
@@ -115,7 +121,7 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
                 -- send the message
                 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
             else
-                -- warn if missing
+                -- only send warning instead of message
                 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No enlighten in inventory")
             end
         end
