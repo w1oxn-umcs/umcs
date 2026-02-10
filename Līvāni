@@ -90,11 +90,12 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
 
         -- function to repeat messages
         local function repeatMessage(plr, msg)
+            if plr == game.Players.LocalPlayer then return end -- don't repeat yourself
             game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(msg)
         end
 
         -- connect all current players
-        for i, player in pairs(game:GetService("Players"):GetChildren()) do
+        for i, player in pairs(game:GetService("Players"):GetPlayers()) do
             player.Chatted:Connect(function(msg)
                 if Value then
                     repeatMessage(player, msg)
@@ -103,16 +104,13 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
         end
 
         -- connect future players
-        game:GetService("Players").ChildAdded:Connect(function(player)
-            if player:IsA("Player") then
-                player.Chatted:Connect(function(msg)
-                    if Value then
-                        repeatMessage(player, msg)
-                    end
-                end)
-            end
+        game:GetService("Players").PlayerAdded:Connect(function(player)
+            player.Chatted:Connect(function(msg)
+                if Value then
+                    repeatMessage(player, msg)
+                end
+            end)
         end)
 
     end,
 })
-
