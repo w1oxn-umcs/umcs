@@ -91,23 +91,34 @@ local RepeatToggle = MainTab:CreateToggle({
     end,
 })
 
-local RBXGeneral = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
-if RBXGeneral then
-    Players.PlayerAdded:Connect(function(player)
-        player.Chatted:Connect(function(msg)
-            if not _G.RepeatWhitelistActive then return end
+local function repeatWhitelisted(player)
+    -- check whitelist
+    local isWhitelisted = false
+    for _, name in ipairs(whitelist) do
+        if player.Name == name then
+            isWhitelisted = true
+            break
+        end
+    end
 
-            -- check whitelist
-            for _, name in ipairs(whitelist) do
-                if player.Name == name then
-                    task.wait(0.5) -- same tiny delay as other commands
-                    RBXGeneral:SendAsync(msg)
-                    break
-                end
+    if isWhitelisted then
+        player.OnChatted:Connect(function(msg)
+            if _G.RepeatWhitelistActive then
+                task.wait(0.5)
+                TextChatService.TextChannels.RBXGeneral:SendAsync(msg)
             end
         end)
-    end)
+    end
 end
+
+-- run for all current players
+for _, player in ipairs(Players:GetPlayers()) do
+    repeatWhitelisted(player)
+end
+
+-- run for new players
+Players.PlayerAdded:Connect(repeatWhitelisted)
+
 
 local Toggle = MainTab:CreateToggle({
     Name = "Welcome Message",
