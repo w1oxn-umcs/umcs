@@ -86,14 +86,12 @@ local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local RBXGeneral = TextChatService.TextChannels.RBXGeneral
 
-_G.ReadWhitelistedActive = false
-
-local ReadToggle = MainTab:CreateToggle({
-    Name = "Read whitelisted Commands",
+local RepeatToggle = MainTab:CreateToggle({
+    Name = "Repeat Whitelisted Commands",
     CurrentValue = false,
-    Flag = "ReadWhitelistToggle",
+    Flag = "RepeatWhitelistToggle",
     Callback = function(Value)
-        _G.ReadWhitelistedActive = Value
+        _G.RepeatWhitelistActive = Value
     end,
 })
 
@@ -108,7 +106,7 @@ end
 
 if RBXGeneral then
     RBXGeneral.OnIncomingMessage:Connect(function(message)
-        if not _G.ReadWhitelistedActive then return end
+        if not _G.RepeatWhitelistActive then return end -- only run if toggle is on
         if not message.Text or not message.TextSource then return end
         if message.Status ~= Enum.TextChatMessageStatus.Success then return end
 
@@ -118,10 +116,12 @@ if RBXGeneral then
 
         local text = message.Text
         if text:sub(1,1) == "!" then
-            print("[WHITELIST CMD]", speaker.Name, text)
+            RBXGeneral:SendAsync(text) -- repeat it
+            print("[REPEATED]", speaker.Name, text)
         end
     end)
 end
+
 
 local Toggle = MainTab:CreateToggle({
     Name = "Welcome Message",
