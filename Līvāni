@@ -82,10 +82,6 @@ local premier = Lists.premier
 local whitelist = Lists.whitelist
 local blacklist = Lists.blacklist
 
-local Players = game:GetService("Players")
-local TextChatService = game:GetService("TextChatService")
-local RBXGeneral = TextChatService.TextChannels.RBXGeneral
-
 local RepeatToggle = MainTab:CreateToggle({
     Name = "Repeat Whitelisted Commands",
     CurrentValue = false,
@@ -95,33 +91,28 @@ local RepeatToggle = MainTab:CreateToggle({
     end,
 })
 
-local function isWhitelisted(playerName)
+TextChatService.OnIncomingMessage = TextChatService.OnIncomingMessage or Instance.new("BindableEvent")
+
+TextChatService.OnIncomingMessage.OnServerEvent:Connect(function(messageData)
+    if not _G.RepeatWhitelistActive then return end
+
+    local sender = messageData.TextSource.UserId or messageData.TextSource.Name
+    local content = messageData.Text
+
+    -- check if sender is whitelisted
+    local isWhitelisted = false
     for _, name in ipairs(whitelist) do
-        if playerName == name then
-            return true
+        if sender == name then
+            isWhitelisted = true
+            break
         end
     end
-    return false
-end
 
-if RBXGeneral then
-    RBXGeneral.OnIncomingMessage:Connect(function(message)
-        if not _G.RepeatWhitelistActive then return end -- only run if toggle is on
-        if not message.Text or not message.TextSource then return end
-        if message.Status ~= Enum.TextChatMessageStatus.Success then return end
-
-        local speaker = Players:GetPlayerByUserId(message.TextSource.UserId)
-        if not speaker then return end
-        if not isWhitelisted(speaker.Name) then return end
-
-        local text = message.Text
-        if text:sub(1,1) == "!" then
-            RBXGeneral:SendAsync(text) -- repeat it
-            print("[REPEATED]", speaker.Name, text)
-        end
-    end)
-end
-
+    if isWhitelisted then
+        task.wait(0.5) -- tiny delay to avoid spam collision
+        TextChatService.TextChannels.RBXGeneral:SendAsync(content)
+    end
+end)
 
 local Toggle = MainTab:CreateToggle({
     Name = "Welcome Message",
