@@ -96,20 +96,17 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
 
             local toSend = string.sub(msg,2) -- remove the dot
 
-            -- check if The Arkenstone exists anywhere
-            local arkenstone = localplr.Backpack:FindFirstChild("The Arkenstone") 
-                              or localplr.Character:FindFirstChild("The Arkenstone")
+            -- check backpack only
+            local arkenstone = localplr.Backpack:FindFirstChild("The Arkenstone")
 
             if arkenstone then
-                -- equip if in backpack
-                if arkenstone.Parent == localplr.Backpack then
-                    arkenstone.Parent = localplr.Character
-                    task.wait(0.2)
-                end
-                -- send the player message
+                -- equip it
+                arkenstone.Parent = localplr.Character
+                task.wait(0.2) -- allow equip
+                -- send the actual message
                 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(toSend)
             else
-                -- absolutely must say warning instead
+                -- must say warning instead
                 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("No enlighten in inventory")
             end
         end
