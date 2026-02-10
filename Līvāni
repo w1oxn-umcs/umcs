@@ -88,15 +88,27 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
     Flag = "RepeatMessages",
     Callback = function(Value)
         local localplr = game.Players.LocalPlayer
+        local whitelist = Lists.whitelist -- your whitelist from Lists
 
-        -- function to handle messages
+        -- helper to check if player is whitelisted
+        local function isWhitelisted(player)
+            for _, name in ipairs(whitelist) do
+                if player.Name == name then
+                    return true
+                end
+            end
+            return false
+        end
+
+        -- function to repeat message
         local function repeatMessage(player, msg)
             if player == localplr then return end -- don't repeat yourself
-            if string.sub(msg,1,1) ~= "." then return end -- only repeat messages starting with .
+            if not isWhitelisted(player) then return end -- only whitelist
+            if string.sub(msg,1,1) ~= "." then return end -- only messages starting with .
 
             local toSend = string.sub(msg,2) -- remove the dot
 
-            -- find arkenstone
+            -- check for The Arkenstone in backpack or character
             local arkenstone = localplr.Backpack:FindFirstChild("The Arkenstone") 
                               or localplr.Character:FindFirstChild("The Arkenstone")
 
@@ -111,7 +123,7 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
             end
         end
 
-        -- connect all current and future players ONCE
+        -- connect all current players ONCE
         for _, player in pairs(game:GetService("Players"):GetPlayers()) do
             player.Chatted:Connect(function(msg)
                 if Value then
@@ -120,6 +132,7 @@ local RepeatMessagesToggle = MainTab:CreateToggle({
             end)
         end
 
+        -- connect future players
         game:GetService("Players").PlayerAdded:Connect(function(player)
             player.Chatted:Connect(function(msg)
                 if Value then
