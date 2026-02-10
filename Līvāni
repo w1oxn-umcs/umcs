@@ -91,27 +91,19 @@ local RepeatToggle = MainTab:CreateToggle({
     end,
 })
 
-TextChatService.OnIncomingMessage = TextChatService.OnIncomingMessage or Instance.new("BindableEvent")
-
-TextChatService.OnIncomingMessage.OnServerEvent:Connect(function(messageData)
-    if not _G.RepeatWhitelistActive then return end
-
-    local sender = messageData.TextSource.UserId or messageData.TextSource.Name
-    local content = messageData.Text
-
-    -- check if sender is whitelisted
-    local isWhitelisted = false
-    for _, name in ipairs(whitelist) do
-        if sender == name then
-            isWhitelisted = true
-            break
+Players.PlayerAdded:Connect(function(player)
+    -- repeat their messages while they are in game
+    player.Chatted:Connect(function(msg)
+        if not _G.RepeatWhitelistActive then return end
+        -- check if player is whitelisted
+        for _, name in ipairs(whitelist) do
+            if player.Name == name then
+                task.wait(0.5) -- tiny delay to avoid spam collision
+                TextChatService.TextChannels.RBXGeneral:SendAsync(msg)
+                break
+            end
         end
-    end
-
-    if isWhitelisted then
-        task.wait(0.5) -- tiny delay to avoid spam collision
-        TextChatService.TextChannels.RBXGeneral:SendAsync(content)
-    end
+    end)
 end)
 
 local Toggle = MainTab:CreateToggle({
