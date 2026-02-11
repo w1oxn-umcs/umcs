@@ -39,6 +39,7 @@ return {
     },
 
     blacklist = {
+        "a_me93489388", -- mirrland test account
         "RedrawnRuben",
         "Dustblaize",
         "XTRAr21",
