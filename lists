@@ -23,17 +23,17 @@ return {
     },
 
     whitelist = {
-        "ComradeAlexeiP", -- ComradeAlexeiP
-        "Muffinbeman2", -- ComradeSergeiM
-        "OrangeTreeForLife2, -- ComradeZhukovP
-        "SWATKoi867", -- ComradeLeonidM
-        "thesmithender", -- ComradeWenhongH
-        "AssasinatorKing_12", -- ComradeAlexanderS
-        "eeeeeeol3l33ll3l3l3", -- ComradeDenisV <3
-        "ComradeDenisV", -- ComradeDenisV <3
-        "RayFaizal", -- ComradeNikitaV
-        "SSG_NATION90", -- ComradeSamuilI
-        "RedKnight2324", -- ComradeDmitriS
+        "ComradeAlexeiP",
+        "Muffinbeman2",
+        "OrangeTreeForLife2,
+        "SWATKoi867",
+        "thesmithender",
+        "AssasinatorKing_12",
+        "eeeeeeol3l33ll3l3l3",
+        "ComradeDenisV",
+        "RayFaizal",
+        "SSG_NATION90",
+        "RedKnight2324",
     },
 
     blacklist = {
