@@ -24,14 +24,16 @@ return {
 
     whitelist = {
         "ComradeAlexeiP",
-        "Muffinbeman2",
-        "OrangeTreeForLife2",
+        "OrangeTreeForLife",
+        "Lilcoreymery",
+        "Comminuted",
         "SWATKoi867",
+        "Moneyiscoolli",
         "thesmithender",
-        "AssasinatorKing_12",
+        "piggyfan727227",
+        "AmbassadorNakazaYuki", -- ALT OF: piggyfan727227
         "eeeeeeol3l33ll3l3l3",
         "ComradeDenisV",
-        "RayFaizal",
         "SSG_NATION90",
         "RedKnight2324",
     },
