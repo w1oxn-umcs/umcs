@@ -33,7 +33,7 @@ return {
         "ComradeDenisV", -- ComradeDenisV <3
         "RayFaizal", -- ComradeNikitaV
         "SSG_NATION90", -- ComradeSamuilI
-        "RedKnight2324" -- ComradeDmitriS
+        "RedKnight2324", -- ComradeDmitriS
     },
 
     blacklist = {
