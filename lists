@@ -4,18 +4,12 @@ return {
         598113321, -- DRC - Democratic Republic of Donvic
         502909114, -- DRC - Great air force of Donvic.
         1068015203, -- DRC - Sword fighting regiment of Donvic
+        33444432, -- OCT - Octavium
     },
 
     FRIENDLY_GROUPS = {
         35338076, -- LVA - Union of Mirrland Communist States
         35421829, -- LVA - ComradeAlexeiP
-        35788275, -- KOR - Democratic People's Republic of Korea
-        35816812, -- KOR - Korean People's Army
-        35348947, -- BTO - Builders of The Chosen One
-        8513762, -- TCU - The Computer Union
-        11872496, -- TCU - The Glorious Robot Army
-        33444432, -- OCT - Octavium
-        359040543, -- OCT - Patriotic Socialism
     },
 
     premier = {
@@ -24,18 +18,11 @@ return {
 
     whitelist = {
         "ComradeAlexeiP",
-        "OrangeTreeForLife",
-        "Lilcoreymery",
-        "Comminuted",
-        "SWATKoi867",
-        "Moneyiscoolli",
-        "thesmithender",
-        "piggyfan727227",
-        "AmbassadorNakazaYuki", -- ALT OF: piggyfan727227
-        "eeeeeeol3l33ll3l3l3",
+        "Muffinbeman2",
+        "ComradeZhukovP",
         "ComradeDenisV",
         "SSG_NATION90",
-        "RedKnight2324",
+        "Phoenixmplooo",
     },
 
     blacklist = {
