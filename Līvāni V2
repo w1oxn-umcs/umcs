@@ -12,3 +12,297 @@
 WindUI: https://github.com/Footagesus/WindUI
 
 ]]
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/autobuild"))()
+
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/download/1.6.66/main.lua"))()
+
+WindUI:SetTheme("Midnight")
+
+local Window = WindUI:CreateWindow({
+    Title = "Līvāni V2",
+    Icon = "rbxassetid://133146869933827",
+    Author = ".gg/bAvFeU2acv",
+    ToggleKey = Enum.KeyCode.K,
+    Folder = "Livani",
+
+    Size = UDim2.fromOffset(580,460),
+    MinSize = Vector2.new(560,350),
+    MaxSize = Vector2.new(850,560),
+
+    Theme = "Midnight",
+    Resizable = true,
+    SideBarWidth = 150,
+
+    KeySystem = {
+        KeyValidator = function(key)
+            return key == "PetrovistReich"
+        end,
+    },
+
+    User = {
+        Enabled = true,
+        Anonymous = false,
+    }
+})
+
+local Players = game:GetService("Players")
+local TextChatService = game:GetService("TextChatService")
+local General = TextChatService.TextChannels:WaitForChild("RBXGeneral")
+
+
+task.spawn(function()
+    while true do
+        local arkenstone = LocalPlayer.Backpack:FindFirstChild("The Arkenstone")
+            or (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("The Arkenstone"))
+
+        if arkenstone then
+            if arkenstone.Parent == LocalPlayer.Backpack and LocalPlayer.Character then
+                arkenstone.Parent = LocalPlayer.Character
+                task.wait(0.2)
+            end
+        else
+            General:SendAsync("No Arkenstone in inventory 😢")
+        end
+
+        task.wait(30)
+    end
+end)
+
+local function forceArkenstone()
+    local character = LocalPlayer.Character
+    if not character then return end
+
+    local arkenstone = LocalPlayer.Backpack:FindFirstChild("The Arkenstone")
+
+    if arkenstone then
+        arkenstone.Parent = character
+    end
+end
+
+task.spawn(function()
+    while task.wait(5) do
+        forceArkenstone()
+    end
+end)
+
+LocalPlayer.CharacterAdded:Connect(function()
+    task.wait(2)
+    forceArkenstone()
+end)
+
+_G.SayMessageActive = false
+
+local Lists = loadstring(game:HttpGet("https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/lists"))()
+
+local BLACKLIST_GROUPS = Lists.BLACKLIST_GROUPS
+local FRIENDLY_GROUPS = Lists.FRIENDLY_GROUPS
+local premier = Lists.premier
+local whitelist = Lists.whitelist
+local blacklist = Lists.blacklist
+
+local ChatTab = Window:Tab({
+    Title = "Chat",
+    Icon = "lucide:message-square-text"
+})
+
+ChatTab:Toggle({
+    Title = "Join Message",
+    Callback = function(state)
+        _G.SayMessageActive = state
+
+        WindUI:Notify({
+            Title = "Join Message",
+            Content = "Toggle: " .. tostring(state),
+            Icon = "lucide:circle-check",
+            Duration = 3,
+        })
+
+        print("Join Message:", state)
+    end
+})
+
+local function isInBlacklistedGroup(player)
+    for _, groupId in ipairs(BLACKLIST_GROUPS) do
+        if player:IsInGroup(groupId) then
+            return true
+        end
+    end
+    return false
+end
+
+local function isInFriendlyGroup(player)
+    for _, groupId in ipairs(FRIENDLY_GROUPS) do
+        if player:IsInGroup(groupId) then
+            return true
+        end
+    end
+    return false
+end
+
+Players.PlayerAdded:Connect(function(player)
+    if not _G.SayMessageActive then
+        return
+    end
+
+    local greeting
+    local fullName = player.Name
+
+    local isVIP = false
+    local isBlocked = false
+    local isPremier = false
+    local isFriendly = false
+
+    for _, name in ipairs(whitelist) do
+        if fullName == name then
+            isVIP = true
+            break
+        end
+    end
+
+    for _, name in ipairs(premier) do
+        if fullName == name then
+            isPremier = true
+            break
+        end
+    end
+
+    for _, name in ipairs(blacklist) do
+        if fullName == name then
+            isBlocked = true
+            break
+        end
+    end
+
+    if isInBlacklistedGroup(player) then
+        isBlocked = true
+    end
+
+    if isInFriendlyGroup(player) and not isBlocked then
+        isFriendly = true
+    end
+
+    if isBlocked then
+        greeting = "⚠️ Blacklisted user " .. fullName .. " has joined. ⚠️"
+
+    elseif isPremier then
+        greeting = "Greetings, Respected Premier Comrade Alexei Petrov. Long live our Beloved Leader!"
+
+    elseif isVIP then
+        greeting = "Greetings, Мирском Member " .. fullName .. "."
+
+    elseif isFriendly then
+        greeting = "Salutations, Comrade " .. fullName .. "."
+
+    else
+        greeting = "Hello, " .. fullName .. "."
+    end
+
+    task.wait(3)
+    General:SendAsync(greeting)
+end)
+
+ChatTab:Toggle({
+    Title = "Day/Night Cycle",
+    Callback = function(state)
+        _G.DayNightActive = state
+
+        WindUI:Notify({
+            Title = "Day/Night Cycle",
+            Content = "Toggle: " .. tostring(state),
+            Icon = "lucide:circle-check",
+            Duration = 3,
+        })
+
+        if state then
+            task.spawn(function()
+                local hour = 6
+
+                while _G.DayNightActive do
+                    General:SendAsync(";hour " .. hour)
+
+                    local waitTime = (hour == 6 or hour == 18) and 30 or 60
+
+                    task.wait(waitTime)
+
+                    hour = (hour + 1) % 24
+                end
+            end)
+        end
+    end,
+})
+
+ChatTab:Toggle({
+    Title = "Non-enlighten Commands",
+    Callback = function(state)
+        _G.RepeatMessagesActive = state
+
+        WindUI:Notify({
+            Title = "Non-enlighten Мирском Commands",
+            Content = "Toggle: " .. tostring(state),
+            Icon = "lucide:circle-check",
+            Duration = 3,
+        })
+
+        print("Non-enlighten Commands:", state)
+    end
+})
+
+_G.RepeatMessagesActive = false
+
+local LocalPlayer = Players.LocalPlayer
+
+local function isWhitelisted(player)
+    for _, name in ipairs(whitelist) do
+        if player.Name == name then
+            return true
+        end
+    end
+    return false
+end
+
+local function repeatMessage(player, msg)
+    if not _G.RepeatMessagesActive then
+        return
+    end
+
+    if player == LocalPlayer then
+        return
+    end
+
+    if not isWhitelisted(player) then
+        return
+    end
+
+    if string.sub(msg, 1, 1) ~= "." then
+        return
+    end
+
+    local toSend = string.sub(msg, 2)
+
+    local arkenstone = LocalPlayer.Backpack:FindFirstChild("The Arkenstone")
+        or (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("The Arkenstone"))
+
+    if arkenstone then
+        if arkenstone.Parent == LocalPlayer.Backpack and LocalPlayer.Character then
+            arkenstone.Parent = LocalPlayer.Character
+            task.wait(0.2)
+        end
+
+        General:SendAsync(toSend)
+    else
+        General:SendAsync("No Arkenstone in inventory 😢")
+    end
+end
+
+local function hookPlayer(player)
+    player.Chatted:Connect(function(msg)
+        repeatMessage(player, msg)
+    end)
+end
+
+for _, player in ipairs(Players:GetPlayers()) do
+    hookPlayer(player)
+end
+
+Players.PlayerAdded:Connect(hookPlayer)
