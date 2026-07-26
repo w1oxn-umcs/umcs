@@ -14,7 +14,6 @@ WindUI: https://github.com/Footagesus/WindUI
 ]]
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/autobuild"))()
-
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/download/1.6.66/main.lua"))()
 
 WindUI:SetTheme("Midnight")
@@ -50,6 +49,7 @@ local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local General = TextChatService.TextChannels:WaitForChild("RBXGeneral")
 
+local LocalPlayer = Players.LocalPlayer
 
 task.spawn(function()
     while true do
@@ -80,18 +80,37 @@ local function forceArkenstone()
     end
 end
 
+-- Keep Arkenstone equipped
 task.spawn(function()
-    while task.wait(5) do
+    while true do
+        forceArkenstone()
+        task.wait(1)
+    end
+end)
+
+-- Detect when tools are removed and restore Arkenstone
+LocalPlayer.Backpack.ChildRemoved:Connect(function(tool)
+    if tool.Name ~= "The Arkenstone" then
+        task.wait(0.1)
         forceArkenstone()
     end
 end)
 
+LocalPlayer.Character.ChildRemoved:Connect(function(tool)
+    if tool.Name ~= "The Arkenstone" then
+        task.wait(0.1)
+        forceArkenstone()
+    end
+end)
+
+-- Respawn support
 LocalPlayer.CharacterAdded:Connect(function()
     task.wait(2)
     forceArkenstone()
 end)
 
 _G.SayMessageActive = false
+_G.DayNightActive = false
 
 local Lists = loadstring(game:HttpGet("https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/lists"))()
 
@@ -186,7 +205,7 @@ Players.PlayerAdded:Connect(function(player)
         greeting = "⚠️ Blacklisted user " .. fullName .. " has joined. ⚠️"
 
     elseif isPremier then
-        greeting = "Greetings, Respected Premier Comrade Alexei Petrov. Long live our Beloved Leader!"
+        greeting = "Greetings, Our Respected and Beloved Supreme Leader Comrade Alexei Petrov. Long live our Beloved Leader!"
 
     elseif isVIP then
         greeting = "Greetings, Мирском Member " .. fullName .. "."
