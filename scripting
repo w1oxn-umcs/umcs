@@ -7,7 +7,7 @@ local WEBHOOK_URL = "https://discord.com/api/webhooks/1548015695885897798/7yZscR
 
 -- Raw URL containing THIS complete monitor script.
 -- Required for re-execution after server hopping.
-local MONITOR_SCRIPT_URL = "PASTE_YOUR_MONITOR_RAW_URL_HERE"
+local MONITOR_SCRIPT_URL = "https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/scripting"
 
 local BLACKLIST_REFRESH = 15
 local BLACKLIST_ALERT_COOLDOWN = 15
