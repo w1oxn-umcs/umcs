@@ -26,6 +26,7 @@ local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local localPlayer = Players.LocalPlayer
 
@@ -56,6 +57,7 @@ local blacklistURL =
 local MONITOR_SCRIPT_URL =
     "https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/scripting"
 
+-- EXACT WEBHOOK PROVIDED
 local WEBHOOK_URL =
     "https://discord.com/api/webhooks/1548015695885897798/7yZscRKl8aqAdbvFF_b06RPRvd5Df0eM40ZZTZzIGnvLeri8O1aDHKNm9abX6UbWVX7t"
 
@@ -71,17 +73,42 @@ local TARGET_PLACE_ID = 12943245078
 local MIN_BOTS = 2
 
 --==================================================
--- REQUEST FUNCTION
+-- HTTP REQUEST FUNCTION
 --==================================================
 
-local request =
-    (syn and syn.request)
-    or (http and http.request)
-    or http_request
-    or request
-    or (fluxus and fluxus.request)
+local function getRequestFunction()
+    if typeof(request) == "function" then
+        return request
+    end
 
-if not request then
+    if typeof(http_request) == "function" then
+        return http_request
+    end
+
+    if typeof(syn) == "table"
+        and typeof(syn.request) == "function" then
+
+        return syn.request
+    end
+
+    if typeof(fluxus) == "table"
+        and typeof(fluxus.request) == "function" then
+
+        return fluxus.request
+    end
+
+    if typeof(http) == "table"
+        and typeof(http.request) == "function" then
+
+        return http.request
+    end
+
+    return nil
+end
+
+local requestFunction = getRequestFunction()
+
+if not requestFunction then
     return
 end
 
@@ -99,8 +126,6 @@ local leftLogged = {}
 
 local botSeparationTriggered = false
 
--- Combined activity buffer.
--- Joins, leaves, normal chat and SpyChat all use this.
 local activityLogBuffer = {}
 
 --==================================================
@@ -193,30 +218,54 @@ local function escapeMarkdown(str)
 end
 
 --==================================================
+-- RAW HTTP REQUEST
+--==================================================
+
+local function performRequest(options)
+    local success, response = pcall(function()
+        return requestFunction(options)
+    end)
+
+    if not success then
+        return false, nil
+    end
+
+    if not response then
+        return false, nil
+    end
+
+    return true, response
+end
+
+--==================================================
 -- WEBHOOK
 --==================================================
 
 local function sendWebhook(title, description, joinServer)
     if not WEBHOOK_URL or WEBHOOK_URL == "" then
-        return
+        return false
     end
 
-    local embed = {
-        title = title,
+    description = tostring(description or "")
 
-        description =
-            description
-            .. "\n\n"
-            .. "**"
-            .. BOT_NUMBER
-            .. " | "
-            .. getWebhookTime()
-            .. "**"
+    local footer =
+        "\n\n**"
+        .. BOT_NUMBER
+        .. " | "
+        .. getWebhookTime()
+        .. "**"
+
+    local embed = {
+        title = tostring(title),
+        description = description .. footer,
+        color = 5763719
     }
 
     local payload = {
         username = "Roblox Server Monitor",
-        embeds = {embed}
+        embeds = {
+            embed
+        }
     }
 
     if joinServer then
@@ -229,7 +278,6 @@ local function sendWebhook(title, description, joinServer)
         payload.components = {
             {
                 type = 1,
-
                 components = {
                     {
                         type = 2,
@@ -245,18 +293,65 @@ local function sendWebhook(title, description, joinServer)
         }
     end
 
-    pcall(function()
-        request({
-            Url = WEBHOOK_URL,
-            Method = "POST",
+    local encoded
 
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-
-            Body = HttpService:JSONEncode(payload)
-        })
+    local encodeSuccess = pcall(function()
+        encoded = HttpService:JSONEncode(payload)
     end)
+
+    if not encodeSuccess or not encoded then
+        return false
+    end
+
+    local options = {
+        Url = WEBHOOK_URL,
+        Method = "POST",
+
+        Headers = {
+            ["Content-Type"] = "application/json",
+            ["Accept"] = "application/json"
+        },
+
+        Body = encoded
+    }
+
+    -- Retry a few times so temporary executor/network
+    -- failures don't silently lose the webhook.
+    for attempt = 1, 3 do
+        local success, response =
+            performRequest(options)
+
+        if success and response then
+            local statusCode =
+                tonumber(
+                    response.StatusCode
+                    or response.Status
+                    or response.status_code
+                )
+
+            -- Discord normally returns 204 for a successful
+            -- webhook execution.
+            if statusCode == 204
+                or statusCode == 200
+                or statusCode == 201 then
+
+                return true
+            end
+
+            -- Some executors don't expose StatusCode.
+            -- A returned response without an error is still
+            -- treated as successful.
+            if statusCode == nil then
+                return true
+            end
+        end
+
+        if attempt < 3 then
+            task.wait(1)
+        end
+    end
+
+    return false
 end
 
 --==================================================
@@ -264,37 +359,54 @@ end
 --==================================================
 
 local function sendChatMessage(message)
-    local success = pcall(function()
+    if not message or message == "" then
+        return
+    end
+
+    -- Modern TextChatService
+    local modernSuccess = pcall(function()
+        if TextChatService.ChatVersion
+            ~= Enum.ChatVersion.TextChatService then
+
+            error("Legacy chat")
+        end
+
         local channels =
             TextChatService:FindFirstChild("TextChannels")
 
         if not channels then
-            return
+            error("TextChannels missing")
         end
 
         local general =
             channels:FindFirstChild("RBXGeneral")
 
-        if general then
-            general:SendAsync(message)
+        if not general then
+            error("RBXGeneral missing")
         end
+
+        general:SendAsync(message)
     end)
 
-    if success then
+    if modernSuccess then
         return
     end
 
+    -- Legacy chat
     pcall(function()
         local chatEvents =
-            game:GetService("ReplicatedStorage")
-            :FindFirstChild("DefaultChatSystemChatEvents")
+            ReplicatedStorage:FindFirstChild(
+                "DefaultChatSystemChatEvents"
+            )
 
         if not chatEvents then
             return
         end
 
         local sayMessageRequest =
-            chatEvents:FindFirstChild("SayMessageRequest")
+            chatEvents:FindFirstChild(
+                "SayMessageRequest"
+            )
 
         if sayMessageRequest then
             sayMessageRequest:FireServer(
@@ -312,7 +424,10 @@ end
 local function addActivityLog(line)
     table.insert(
         activityLogBuffer,
-        line
+        "`["
+        .. os.date("%H:%M:%S")
+        .. "]` "
+        .. tostring(line)
     )
 end
 
@@ -336,10 +451,7 @@ local function addChatLog(player, message, spyData)
     end
 
     addActivityLog(
-        "`["
-        .. os.date("%H:%M:%S")
-        .. "]`"
-        .. spyPrefix
+        spyPrefix
         .. " **"
         .. escapeMarkdown(player.Name)
         .. "** (`"
@@ -375,7 +487,10 @@ local namecolorshex = {}
 
 for i, v in pairs(namecolors) do
     namecolorshex[i] =
-        "#" .. Color3.fromRGB(table.unpack(v)):ToHex()
+        "#"
+        .. Color3.fromRGB(
+            table.unpack(v)
+        ):ToHex()
 end
 
 local function getSpyChatInfo(mdata)
@@ -390,10 +505,12 @@ local function getSpyChatInfo(mdata)
         return nil
     end
 
-    local originalText = mdata.Text
+    local originalText =
+        tostring(mdata.Text or "")
 
     local hidden = false
     local muted = plr:HasTag("Muted")
+
     local cn = ""
 
     if plr.Neutral == true then
@@ -419,14 +536,23 @@ local function getSpyChatInfo(mdata)
 
     local iq = nil
 
-    if on and spychat and plr:GetAttribute("IQ") then
-        if plr:GetAttribute("IQ") >= 200 then
-            iq = "genius 🧠"
-            cn = "iqgenius"
+    if on and spychat
+        and plr:GetAttribute("IQ") then
 
-        elseif plr:GetAttribute("IQ") <= 50 then
-            iq = "dumb 🤪"
-            cn = "iqdumb"
+        local iqValue =
+            tonumber(
+                plr:GetAttribute("IQ")
+            )
+
+        if iqValue then
+            if iqValue >= 200 then
+                iq = "genius 🧠"
+                cn = "iqgenius"
+
+            elseif iqValue <= 50 then
+                iq = "dumb 🤪"
+                cn = "iqdumb"
+            end
         end
     end
 
@@ -441,7 +567,8 @@ local function getSpyChatInfo(mdata)
 end
 
 local function oimremake(mdata)
-    local info = getSpyChatInfo(mdata)
+    local info =
+        getSpyChatInfo(mdata)
 
     if not info then
         return
@@ -453,13 +580,22 @@ local function oimremake(mdata)
     local iq = info.iq
     local cn = info.category
 
+    if not namecolors[cn] then
+        cn = "peasant"
+    end
+
     if muted then
         if not on or not spychat then
             mdata.Text = ""
         end
     end
 
-    if string.sub(mdata.Text, 1, 1) == ";" then
+    if string.sub(
+        tostring(mdata.Text or ""),
+        1,
+        1
+    ) == ";" then
+
         if on and spychat then
             cn = "hidden"
             hidden = true
@@ -504,52 +640,68 @@ local function oimremake(mdata)
 end
 
 --==================================================
--- TEXTCHAT SERVICE CHAT LOGGING + SPYCHAT
+-- TEXTCHAT SERVICE CHAT LOGGING
 --==================================================
 
 local textChatConnected = false
 
 pcall(function()
-    TextChatService.MessageReceived:Connect(function(message)
-        if not message.TextSource then
-            return
-        end
+    local connection =
+        TextChatService.MessageReceived:Connect(
+            function(message)
 
-        local userId =
-            message.TextSource.UserId
+                if not message.TextSource then
+                    return
+                end
 
-        local player =
-            Players:GetPlayerByUserId(userId)
+                local userId =
+                    message.TextSource.UserId
 
-        if not player then
-            return
-        end
+                local player =
+                    Players:GetPlayerByUserId(
+                        userId
+                    )
 
-        local originalText = message.Text
+                if not player then
+                    return
+                end
 
-        local spyInfo =
-            getSpyChatInfo(message)
+                local originalText =
+                    tostring(message.Text or "")
 
-        local isSpyMessage = false
+                local spyInfo =
+                    getSpyChatInfo(message)
 
-        if spyInfo and spychat and on then
-            if spyInfo.hidden
-                or spyInfo.muted
-                or spyInfo.iq ~= nil
-                or string.sub(originalText, 1, 1) == ";" then
+                local isSpyMessage = false
 
-                isSpyMessage = true
+                if spyInfo
+                    and spychat
+                    and on then
+
+                    if spyInfo.hidden
+                        or spyInfo.muted
+                        or spyInfo.iq ~= nil
+                        or string.sub(
+                            originalText,
+                            1,
+                            1
+                        ) == ";" then
+
+                        isSpyMessage = true
+                    end
+                end
+
+                addChatLog(
+                    player,
+                    originalText,
+                    isSpyMessage
+                )
             end
-        end
-
-        addChatLog(
-            player,
-            originalText,
-            isSpyMessage
         )
-    end)
 
-    textChatConnected = true
+    if connection then
+        textChatConnected = true
+    end
 end)
 
 --==================================================
@@ -557,7 +709,8 @@ end)
 --==================================================
 
 pcall(function()
-    TextChatService.OnIncomingMessage = oimremake
+    TextChatService.OnIncomingMessage =
+        oimremake
 end)
 
 --==================================================
@@ -567,8 +720,7 @@ end)
 if not textChatConnected then
     pcall(function()
         local chatEvents =
-            game:GetService("ReplicatedStorage")
-            :FindFirstChild(
+            ReplicatedStorage:FindFirstChild(
                 "DefaultChatSystemChatEvents"
             )
 
@@ -585,29 +737,37 @@ if not textChatConnected then
             return
         end
 
-        onMessage.OnClientEvent:Connect(function(data)
-            if type(data) ~= "table" then
-                return
+        onMessage.OnClientEvent:Connect(
+            function(data)
+
+                if type(data) ~= "table" then
+                    return
+                end
+
+                local username =
+                    data.FromSpeaker
+
+                local message =
+                    data.Message
+
+                if not username or not message then
+                    return
+                end
+
+                local player =
+                    Players:FindFirstChild(
+                        username
+                    )
+
+                if player then
+                    addChatLog(
+                        player,
+                        message,
+                        false
+                    )
+                end
             end
-
-            local username = data.FromSpeaker
-            local message = data.Message
-
-            if not username or not message then
-                return
-            end
-
-            local player =
-                Players:FindFirstChild(username)
-
-            if player then
-                addChatLog(
-                    player,
-                    message,
-                    false
-                )
-            end
-        end)
+        )
     end)
 end
 
@@ -615,74 +775,88 @@ end
 -- SEND COMBINED ACTIVITY EVERY 15 SECONDS
 --==================================================
 
-task.spawn(function()
-    while true do
-        task.wait(ACTIVITY_LOG_INTERVAL)
+local function sendActivityBatch()
+    if #activityLogBuffer == 0 then
+        return
+    end
 
-        if #activityLogBuffer == 0 then
-            continue
+    local entries =
+        activityLogBuffer
+
+    activityLogBuffer = {}
+
+    local chunks = {}
+    local currentChunk = ""
+
+    for _, line in ipairs(entries) do
+        line = tostring(line)
+
+        if #line > 3600 then
+            line =
+                string.sub(line, 1, 3590)
+                .. "..."
         end
 
-        local chunks = {}
-        local currentChunk = ""
+        if currentChunk == "" then
+            currentChunk = line
 
-        for _, line in ipairs(activityLogBuffer) do
-            if currentChunk == "" then
-                currentChunk = line
+        elseif #currentChunk + #line + 1 <= 3600 then
+            currentChunk =
+                currentChunk
+                .. "\n"
+                .. line
 
-            elseif #currentChunk + #line + 1 <= 3900 then
-                currentChunk =
-                    currentChunk
-                    .. "\n"
-                    .. line
-
-            else
-                table.insert(
-                    chunks,
-                    currentChunk
-                )
-
-                currentChunk = line
-            end
-        end
-
-        if currentChunk ~= "" then
+        else
             table.insert(
                 chunks,
                 currentChunk
             )
+
+            currentChunk = line
         end
+    end
 
-        activityLogBuffer = {}
+    if currentChunk ~= "" then
+        table.insert(
+            chunks,
+            currentChunk
+        )
+    end
 
-        for index, chunk in ipairs(chunks) do
-            sendWebhook(
-                "💬 Activity Logs"
-                .. (
-                    #chunks > 1
-                    and " (" .. index .. "/" .. #chunks .. ")"
-                    or ""
-                ),
+    for index, chunk in ipairs(chunks) do
+        sendWebhook(
+            "💬 Activity Logs"
+            .. (
+                #chunks > 1
+                and " (" .. index .. "/" .. #chunks .. ")"
+                or ""
+            ),
 
-                "**Game:** "
-                .. GAME_NAME
-                .. "\n"
+            "**Game:** "
+            .. GAME_NAME
+            .. "\n"
 
-                .. "**Place ID:** `"
-                .. tostring(game.PlaceId)
-                .. "`\n"
+            .. "**Place ID:** `"
+            .. tostring(game.PlaceId)
+            .. "`\n"
 
-                .. "**Job ID:** `"
-                .. escapeMarkdown(game.JobId)
-                .. "`\n\n"
+            .. "**Job ID:** `"
+            .. escapeMarkdown(game.JobId)
+            .. "`\n\n"
 
-                .. chunk
-            )
+            .. chunk
+        )
 
-            if index < #chunks then
-                task.wait(0.5)
-            end
+        if index < #chunks then
+            task.wait(0.5)
         end
+    end
+end
+
+task.spawn(function()
+    while true do
+        task.wait(ACTIVITY_LOG_INTERVAL)
+        sendActivityBatch()
     end
 end)
 
@@ -691,14 +865,16 @@ end)
 --==================================================
 
 local function downloadBlacklist()
-    local success, response = pcall(function()
-        return request({
+    local success, response =
+        performRequest({
             Url = blacklistURL,
             Method = "GET"
         })
-    end)
 
-    if not success or not response then
+    if not success
+        or not response
+        or not response.Body then
+
         sendWebhook(
             "❌ Blacklist Error",
 
@@ -710,9 +886,10 @@ local function downloadBlacklist()
         return false
     end
 
-    local body = response.Body
+    local body =
+        tostring(response.Body)
 
-    if not body or body == "" then
+    if body == "" then
         sendWebhook(
             "❌ Blacklist Error",
 
@@ -742,7 +919,6 @@ local function downloadBlacklist()
             newBlacklist[userId] = {
                 reason = reason
             }
-
         else
             local plainUserId =
                 line:match(
@@ -796,15 +972,15 @@ local function alertBlacklisted(player)
         return
     end
 
-    local now = os.clock()
+    local now =
+        os.clock()
 
     local lastAlert =
         blacklistAlertCooldown[userId]
 
     if lastAlert
-        and (now - lastAlert) < BLACKLIST_ALERT_COOLDOWN then
-
-        blacklistAlertedThisSession[userId] = true
+        and (now - lastAlert)
+            < BLACKLIST_ALERT_COOLDOWN then
 
         return
     end
@@ -816,8 +992,11 @@ local function alertBlacklisted(player)
         return
     end
 
-    blacklistAlertedThisSession[userId] = true
-    blacklistAlertCooldown[userId] = now
+    blacklistAlertedThisSession[userId] =
+        true
+
+    blacklistAlertCooldown[userId] =
+        now
 
     local username =
         escapeMarkdown(player.Name)
@@ -843,7 +1022,7 @@ local function alertBlacklisted(player)
         .. "`\n\n"
 
         .. "**Reason:**\n"
-        .. reason
+        .. escapeMarkdown(reason)
         .. "\n\n"
 
         .. "**Game:** "
@@ -872,6 +1051,7 @@ local function getBotsInServer()
     for _, player in ipairs(
         Players:GetPlayers()
     ) do
+
         if botLookup[
             normalize(player.Name)
         ] then
@@ -902,7 +1082,9 @@ local function getLowestBot(bots)
                 )
             )
 
-        if number and number < lowestNumber then
+        if number
+            and number < lowestNumber then
+
             lowestNumber = number
             lowestBot = bot
         end
@@ -916,16 +1098,19 @@ end
 --==================================================
 
 local function queueMonitorAfterTeleport()
-    local queueFunction =
-        (typeof(queue_on_teleport) == "function"
-            and queue_on_teleport)
-        or
-        (typeof(queueonteleport) == "function"
-            and queueonteleport)
-        or
-        (syn
-            and typeof(syn.queue_on_teleport) == "function"
-            and syn.queue_on_teleport)
+    local queueFunction = nil
+
+    if typeof(queue_on_teleport) == "function" then
+        queueFunction = queue_on_teleport
+
+    elseif typeof(queueonteleport) == "function" then
+        queueFunction = queueonteleport
+
+    elseif typeof(syn) == "table"
+        and typeof(syn.queue_on_teleport) == "function" then
+
+        queueFunction = syn.queue_on_teleport
+    end
 
     if not queueFunction then
         return false
@@ -936,14 +1121,20 @@ local function queueMonitorAfterTeleport()
         .. MONITOR_SCRIPT_URL
         .. '"))()'
 
-    return pcall(function()
-        queueFunction(code)
-    end)
+    local success =
+        pcall(function()
+            queueFunction(code)
+        end)
+
+    return success
 end
 
 --==================================================
 -- FIND DIFFERENT PUBLIC SERVER
 --==================================================
+
+local randomGenerator =
+    Random.new()
 
 local function getDifferentServer()
     local currentJobId =
@@ -953,7 +1144,6 @@ local function getDifferentServer()
         tostring(TARGET_PLACE_ID)
 
     local servers = {}
-
     local cursor = nil
 
     for page = 1, 10 do
@@ -970,12 +1160,10 @@ local function getDifferentServer()
         end
 
         local success, response =
-            pcall(function()
-                return request({
-                    Url = url,
-                    Method = "GET"
-                })
-            end)
+            performRequest({
+                Url = url,
+                Method = "GET"
+            })
 
         if not success
             or not response
@@ -1044,7 +1232,7 @@ local function getDifferentServer()
     end
 
     return servers[
-        math.random(
+        randomGenerator:NextInteger(
             1,
             #servers
         )
@@ -1074,13 +1262,12 @@ local function separateBots()
         return
     end
 
-    -- Lowest-numbered bot stays.
+    -- Lowest numbered bot stays.
     if stayingBot == localPlayer then
         botSeparationTriggered = true
         return
     end
 
-    -- Every other bot leaves.
     botSeparationTriggered = true
 
     local botList = {}
@@ -1088,7 +1275,6 @@ local function separateBots()
     for _, bot in ipairs(bots) do
         table.insert(
             botList,
-
             "`"
             .. escapeMarkdown(bot.Name)
             .. "`"
@@ -1131,7 +1317,7 @@ local function separateBots()
 
     task.wait(1)
 
-    -- Queue the monitor BEFORE teleporting.
+    -- Queue the complete monitor before teleport.
     queueMonitorAfterTeleport()
 
     local targetJobId = nil
@@ -1156,20 +1342,26 @@ local function separateBots()
         return
     end
 
-    -- Absolute final protection against teleporting
-    -- back into the current server.
     if targetJobId == tostring(game.JobId) then
         botSeparationTriggered = false
         return
     end
 
-    pcall(function()
-        TeleportService:TeleportToPlaceInstance(
-            TARGET_PLACE_ID,
-            targetJobId,
-            localPlayer
-        )
-    end)
+    -- Flush any pending activity before leaving.
+    sendActivityBatch()
+
+    local teleportSuccess =
+        pcall(function()
+            TeleportService:TeleportToPlaceInstance(
+                TARGET_PLACE_ID,
+                targetJobId,
+                localPlayer
+            )
+        end)
+
+    if not teleportSuccess then
+        botSeparationTriggered = false
+    end
 end
 
 --==================================================
@@ -1177,6 +1369,10 @@ end
 --==================================================
 
 local function playerJoined(player)
+    if not player then
+        return
+    end
+
     if isBlacklisted(player) then
         alertBlacklisted(player)
     end
@@ -1205,13 +1401,15 @@ end
 --==================================================
 
 local function playerLeft(player)
+    if not player then
+        return
+    end
+
     local userId =
         tostring(player.UserId)
 
     blacklistAlertedThisSession[userId] = nil
-
     joinedLogged[player.UserId] = nil
-    leftLogged[player.UserId] = nil
 
     if LOG_PLAYER_LEAVES
         and not leftLogged[player.UserId] then
@@ -1241,6 +1439,7 @@ downloadBlacklist()
 for _, player in ipairs(
     Players:GetPlayers()
 ) do
+
     task.spawn(function()
         task.wait(1)
         playerJoined(player)
