@@ -113,6 +113,10 @@ local GAME_INFO = {
         name = "The Chosen One"
     },
 
+    [108097274488844] = {
+        name = "The Chosen One OG"
+    },
+
     [12943245078] = {
         name = "The Chosen One XL"
     },
@@ -146,23 +150,6 @@ for _, name in ipairs(BOT_NAMES) do
 end
 
 --==================================================
--- BOT NUMBER
---==================================================
-
-local function getBotNumber()
-    local number =
-        localPlayer.Name:match("^PetrovistVictory(%d%d%d)$")
-
-    if number then
-        return number
-    end
-
-    return "000"
-end
-
-local BOT_NUMBER = getBotNumber()
-
---==================================================
 -- WEBHOOK TIME
 --==================================================
 
@@ -193,6 +180,13 @@ local function escapeMarkdown(str)
     return str
 end
 
+local function getJoinServerURL()
+    return "https://www.roblox.com/games/start?placeId="
+        .. tostring(game.PlaceId)
+        .. "&gameInstanceId="
+        .. tostring(game.JobId)
+end
+
 --==================================================
 -- WEBHOOK
 --==================================================
@@ -208,9 +202,9 @@ local function sendWebhook(title, description, joinServer)
         description =
             description
             .. "\n\n"
-            .. "**"
-            .. BOT_NUMBER
-            .. " | "
+            .. "@"
+            .. localPlayer.Name
+            .. " at **"
             .. getWebhookTime()
             .. "**",
 
@@ -674,16 +668,20 @@ task.spawn(function()
 
         for index, chunk in ipairs(chunks) do
             sendWebhook(
-                "💬 Activity Logs"
+                "["
+                .. localPlayer.Name
+                .. "] - 💬 Activity Logs"
                 .. (
                     #chunks > 1
                     and " (" .. index .. "/" .. #chunks .. ")"
                     or ""
                 ),
 
-                "**Game:** "
-                .. GAME_NAME
-                .. "\n"
+                "**Game:** ["
+                .. escapeMarkdown(GAME_NAME)
+                .. "]("
+                .. getJoinServerURL()
+                .. ")\n"
 
                 .. "**Place ID:** `"
                 .. tostring(game.PlaceId)
