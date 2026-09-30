@@ -42,7 +42,6 @@ for _, botName in ipairs(BOT_NAMES) do
     end
 end
 
--- Do absolutely nothing on non-bot accounts
 if not isBotAccount then
     return
 end
@@ -64,7 +63,7 @@ _G.UMCSBotServerMonitorLoaded = true
 local blacklistURL =
     "https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/blacklist"
 
-local WEBHOOK_URL = "https://discord.com/api/webhooks/1548015695885897798/7yZscRKl8aqAdbvFF_b06RPRvd5Df0eM40ZZTZzIGnvLeri8O1aDHKNm9abX6UbWVX7t"
+local WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE"
 
 local BLACKLIST_REFRESH = 15
 local BLACKLIST_ALERT_COOLDOWN = 15
@@ -114,18 +113,15 @@ local chatLogBuffer = {}
 
 local GAME_INFO = {
     [11137575513] = {
-        name = "The Chosen One",
-        url = "https://www.roblox.com/games/11137575513/The-Chosen-One"
+        name = "The Chosen One"
     },
 
     [12943245078] = {
-        name = "The Chosen One XL",
-        url = "https://www.roblox.com/games/12943245078/The-Chosen-One-XL"
+        name = "The Chosen One XL"
     },
 
     [12943247001] = {
-        name = "The Chosen One VC",
-        url = "https://www.roblox.com/games/12943247001/The-Chosen-One-VC"
+        name = "The Chosen One VC"
     }
 }
 
@@ -134,16 +130,16 @@ local function getGameInfo()
     local info = GAME_INFO[placeId]
 
     if info then
-        return info.name, info.url
+        return info.name
     end
 
-    return game.Name, "https://www.roblox.com/games/" .. tostring(game.PlaceId)
+    return game.Name
 end
 
-local GAME_NAME, GAME_URL = getGameInfo()
+local GAME_NAME = getGameInfo()
 
 local GAME_LINK =
-    "[" .. GAME_NAME .. " | Play on Roblox](" .. GAME_URL .. ")"
+    GAME_NAME
 
 --==================================================
 -- BOT LOOKUP
@@ -160,7 +156,8 @@ end
 --==================================================
 
 local function getBotNumber()
-    local number = localPlayer.Name:match("^PetrovistVictory(%d%d%d)$")
+    local number =
+        localPlayer.Name:match("^PetrovistVictory(%d%d%d)$")
 
     if number then
         return number
@@ -226,7 +223,7 @@ local function sendWebhook(title, description, joinServer)
 
     local payload = {
         username = "Roblox Server Monitor",
-        embeds = { embed }
+        embeds = {embed}
     }
 
     if joinServer then
@@ -307,7 +304,10 @@ local function sendChatMessage(message)
             chatEvents:FindFirstChild("SayMessageRequest")
 
         if sayMessageRequest then
-            sayMessageRequest:FireServer(message, "All")
+            sayMessageRequest:FireServer(
+                message,
+                "All"
+            )
         end
     end)
 end
@@ -371,7 +371,9 @@ local function getSpyChatInfo(mdata)
     local plr =
         mdata.TextSource
         and mdata.TextSource.UserId
-        and Players:GetPlayerByUserId(mdata.TextSource.UserId)
+        and Players:GetPlayerByUserId(
+            mdata.TextSource.UserId
+        )
 
     if not plr then
         return nil
@@ -502,7 +504,8 @@ pcall(function()
             return
         end
 
-        local userId = message.TextSource.UserId
+        local userId =
+            message.TextSource.UserId
 
         local player =
             Players:GetPlayerByUserId(userId)
@@ -554,7 +557,9 @@ if not textChatConnected then
     pcall(function()
         local chatEvents =
             game:GetService("ReplicatedStorage")
-            :FindFirstChild("DefaultChatSystemChatEvents")
+            :FindFirstChild(
+                "DefaultChatSystemChatEvents"
+            )
 
         if not chatEvents then
             return
@@ -773,7 +778,8 @@ local function isBlacklisted(player)
         return false, nil
     end
 
-    local userId = tostring(player.UserId)
+    local userId =
+        tostring(player.UserId)
 
     local entry =
         blacklist[userId]
@@ -888,6 +894,31 @@ local function getBotsInServer()
 end
 
 --==================================================
+-- GET LOWEST BOT
+--==================================================
+
+local function getLowestBot(bots)
+    local lowestBot = nil
+    local lowestNumber = math.huge
+
+    for _, bot in ipairs(bots) do
+        local number =
+            tonumber(
+                bot.Name:match(
+                    "^PetrovistVictory(%d%d%d)$"
+                )
+            )
+
+        if number and number < lowestNumber then
+            lowestNumber = number
+            lowestBot = bot
+        end
+    end
+
+    return lowestBot
+end
+
+--==================================================
 -- BOT SEPARATION
 --==================================================
 
@@ -903,6 +934,20 @@ local function separateBots()
         return
     end
 
+    local stayingBot =
+        getLowestBot(bots)
+
+    if not stayingBot then
+        return
+    end
+
+    -- Lowest-numbered bot stays.
+    if stayingBot == localPlayer then
+        botSeparationTriggered = true
+        return
+    end
+
+    -- Every other bot leaves.
     botSeparationTriggered = true
 
     local botList = {}
@@ -930,6 +975,14 @@ local function separateBots()
         )
 
         .. "\n\n"
+
+        .. "**Staying Bot:** `"
+        .. escapeMarkdown(stayingBot.Name)
+        .. "`\n"
+
+        .. "**Leaving Bot:** `"
+        .. escapeMarkdown(localPlayer.Name)
+        .. "`\n"
 
         .. "**Destination Place ID:** `"
         .. tostring(TARGET_PLACE_ID)
