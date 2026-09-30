@@ -63,7 +63,7 @@ _G.UMCSBotServerMonitorLoaded = true
 local blacklistURL =
     "https://raw.githubusercontent.com/w1oxn-umcs/umcs/refs/heads/main/blacklist"
 
-local WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE"
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1548015695885897798/7yZscRKl8aqAdbvFF_b06RPRvd5Df0eM40ZZTZzIGnvLeri8O1aDHKNm9abX6UbWVX7t"
 
 local BLACKLIST_REFRESH = 15
 local BLACKLIST_ALERT_COOLDOWN = 15
